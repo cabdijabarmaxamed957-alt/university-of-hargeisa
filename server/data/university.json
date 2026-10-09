@@ -1,0 +1,745 @@
+{
+  "_meta": {
+    "version": "2.0",
+    "seeded": true,
+    "createdAt": "2026-10-09T16:43:16.361Z"
+  },
+  "users": [
+    {
+      "id": "u1",
+      "email": "director@university.edu",
+      "passwordHash": "$2b$10$IPYFbJSSVuQPk5iVR.4SBel5uaV5zF4auK85lGNSQryjJo7rG8F12",
+      "role": "director",
+      "officeId": null,
+      "fullName": "Dr. Mohammed Al-Qassim",
+      "isActive": true,
+      "createdAt": "2026-10-09T16:43:16.361Z",
+      "lastLogin": "2026-10-09T16:46:29.994Z"
+    },
+    {
+      "id": "u2",
+      "email": "ahmed@university.edu",
+      "passwordHash": "$2b$10$q1eFHpBiYmOqR1MglHlIJu6/ei6sn0BIch40q0QDFSdFlsnU3Qyfe",
+      "role": "office_manager",
+      "officeId": "printing",
+      "fullName": "Ahmed Al-Mansoor",
+      "isActive": true,
+      "createdAt": "2026-10-09T16:43:16.361Z",
+      "lastLogin": "2026-10-09T16:46:30.119Z"
+    },
+    {
+      "id": "u3",
+      "email": "hassan@university.edu",
+      "passwordHash": "$2b$10$veBgOAEslrSpu7MFctnJWu9dhHIjzinAn8hnzOAQmbWXgJMomekcC",
+      "role": "office_manager",
+      "officeId": "medical_library",
+      "fullName": "Hassan Al-Omari",
+      "isActive": true,
+      "createdAt": "2026-10-09T16:43:16.361Z",
+      "lastLogin": "2026-10-09T16:46:30.240Z"
+    },
+    {
+      "id": "u4",
+      "email": "omar@university.edu",
+      "passwordHash": "$2b$10$MnU26DF/suHjzaeKd6ph5elLJwyfKeOknFqOKnzNN6rBaZAdFvynW",
+      "role": "office_manager",
+      "officeId": "finance",
+      "fullName": "Omar Al-Farhan",
+      "isActive": true,
+      "createdAt": "2026-10-09T16:43:16.361Z",
+      "lastLogin": null
+    },
+    {
+      "id": "u5",
+      "email": "noc@university.edu",
+      "passwordHash": "$2b$10$NUNb7pSLNmwzIECDZaT5vOa51HB4w4IreLTAlQlZIDTNAkrWQFOJW",
+      "role": "it_admin",
+      "officeId": null,
+      "fullName": "Network Operations Center",
+      "isActive": true,
+      "createdAt": "2026-10-09T16:43:16.361Z",
+      "lastLogin": "2026-10-09T16:46:30.359Z"
+    }
+  ],
+  "offices": [
+    {
+      "id": "printing",
+      "name": "Printing Office",
+      "nameAr": "مكتب الطباعة والتصوير",
+      "manager": "Ahmed Al-Mansoor",
+      "category": "Operational",
+      "location": "Central Campus - Bldg B, Ground Floor",
+      "status": "online",
+      "computers": [
+        {
+          "id": "DEV-PRN-01",
+          "name": "Printing-Main-PC",
+          "os": "Windows 11 Pro",
+          "status": "online",
+          "agentVersion": "1.2.0",
+          "lastPing": null,
+          "ip": "10.20.4.12",
+          "token": null,
+          "lastHeartbeat": "2026-10-09T16:46:30.588Z"
+        },
+        {
+          "id": "DEV-PRN-02",
+          "name": "HighSpeed-Plotter-PC",
+          "os": "Windows 10 Enterprise",
+          "status": "online",
+          "agentVersion": null,
+          "lastPing": null,
+          "ip": "10.20.4.15",
+          "token": null
+        }
+      ]
+    },
+    {
+      "id": "medical_library",
+      "name": "Medical Library",
+      "nameAr": "المكتبة الطبية",
+      "manager": "Hassan Al-Omari",
+      "category": "Academic",
+      "location": "Medical Tower - 2nd Floor",
+      "status": "online",
+      "computers": [
+        {
+          "id": "DEV-LIB-01",
+          "name": "Library-Admin-PC",
+          "os": "Windows 11 Pro",
+          "status": "online",
+          "agentVersion": null,
+          "lastPing": null,
+          "ip": "10.20.5.20",
+          "token": null
+        },
+        {
+          "id": "DEV-LIB-02",
+          "name": "Catalog-Workstation",
+          "os": "Ubuntu 22.04 LTS",
+          "status": "offline",
+          "agentVersion": null,
+          "lastPing": null,
+          "ip": "10.20.5.21",
+          "token": null
+        }
+      ]
+    },
+    {
+      "id": "finance",
+      "name": "Finance Office",
+      "nameAr": "مكتب الشؤون المالية",
+      "manager": "Omar Al-Farhan",
+      "category": "Administrative",
+      "location": "Admin Wing - 3rd Floor, Room 310",
+      "status": "online",
+      "computers": [
+        {
+          "id": "DEV-FIN-01",
+          "name": "Finance-Director-PC",
+          "os": "Windows 11 Pro",
+          "status": "online",
+          "agentVersion": null,
+          "lastPing": null,
+          "ip": "10.20.6.30",
+          "token": null
+        },
+        {
+          "id": "DEV-FIN-02",
+          "name": "Accounts-Payable-PC",
+          "os": "Windows 10 Enterprise",
+          "status": "online",
+          "agentVersion": null,
+          "lastPing": null,
+          "ip": "10.20.6.31",
+          "token": null
+        }
+      ]
+    },
+    {
+      "id": "students_affairs",
+      "name": "Students Affairs Office",
+      "nameAr": "مكتب شؤون الطلاب",
+      "manager": "Fatima Al-Zahrawi",
+      "category": "Academic",
+      "location": "Main Hall - Ground Floor",
+      "status": "offline",
+      "computers": [
+        {
+          "id": "DEV-STU-01",
+          "name": "Students-Main-PC",
+          "os": "Windows 11 Pro",
+          "status": "offline",
+          "agentVersion": null,
+          "lastPing": null,
+          "ip": "10.20.7.40",
+          "token": null
+        }
+      ]
+    },
+    {
+      "id": "maintenance",
+      "name": "Maintenance Office",
+      "nameAr": "مكتب الصيانة",
+      "manager": "Khalid Bin Saleh",
+      "category": "Operational",
+      "location": "Service Block - East Wing",
+      "status": "online",
+      "computers": [
+        {
+          "id": "DEV-MNT-01",
+          "name": "Maintenance-PC",
+          "os": "Windows 10 Pro",
+          "status": "online",
+          "agentVersion": null,
+          "lastPing": null,
+          "ip": "10.20.8.50",
+          "token": null
+        }
+      ]
+    }
+  ],
+  "tasks": [
+    {
+      "id": "TAS-1791564197769-1",
+      "title": "Print Grade Sheets - Fall Semester",
+      "titleAr": "Print Grade Sheets - Fall Semester",
+      "description": "Expedite printing and stamping for registrar clearance.",
+      "officeId": "printing",
+      "officeName": "Printing Office",
+      "manager": "Ahmed Al-Mansoor",
+      "priority": "high",
+      "status": "new",
+      "createdAt": "2026-10-09T16:43:17.769Z",
+      "createdBy": "u1",
+      "attachment": null,
+      "screenSessionId": null
+    },
+    {
+      "id": "TAS-1791564328972-2",
+      "title": "Print Grade Sheets - Fall Semester",
+      "titleAr": "Print Grade Sheets - Fall Semester",
+      "description": "Expedite printing and stamping for registrar clearance.",
+      "officeId": "printing",
+      "officeName": "Printing Office",
+      "manager": "Ahmed Al-Mansoor",
+      "priority": "high",
+      "status": "received",
+      "createdAt": "2026-10-09T16:45:28.972Z",
+      "createdBy": "u1",
+      "attachment": null,
+      "screenSessionId": null
+    },
+    {
+      "id": "TAS-1791564390523-3",
+      "title": "Print Grade Sheets - Fall Semester",
+      "titleAr": "Print Grade Sheets - Fall Semester",
+      "description": "Expedite printing and stamping for registrar clearance.",
+      "officeId": "printing",
+      "officeName": "Printing Office",
+      "manager": "Ahmed Al-Mansoor",
+      "priority": "high",
+      "status": "completed",
+      "createdAt": "2026-10-09T16:46:30.523Z",
+      "createdBy": "u1",
+      "attachment": null,
+      "screenSessionId": null,
+      "startedAt": "2026-10-09T16:46:30.535Z",
+      "completedAt": "2026-10-09T16:46:30.541Z"
+    }
+  ],
+  "taskHistory": [
+    {
+      "id": "TH-1791564197769",
+      "taskId": "TAS-1791564197769-1",
+      "status": "new",
+      "by": "System",
+      "time": "2026-10-09T16:43:17.769Z",
+      "note": "Task created"
+    },
+    {
+      "id": "TH-1791564328972",
+      "taskId": "TAS-1791564328972-2",
+      "status": "new",
+      "by": "System",
+      "time": "2026-10-09T16:45:28.972Z",
+      "note": "Task created"
+    },
+    {
+      "id": "TH-1791564328978",
+      "taskId": "TAS-1791564328972-2",
+      "status": "received",
+      "by": "Ahmed Al-Mansoor",
+      "time": "2026-10-09T16:45:28.978Z",
+      "note": ""
+    },
+    {
+      "id": "TH-1791564390523",
+      "taskId": "TAS-1791564390523-3",
+      "status": "new",
+      "by": "System",
+      "time": "2026-10-09T16:46:30.523Z",
+      "note": "Task created"
+    },
+    {
+      "id": "TH-1791564390529",
+      "taskId": "TAS-1791564390523-3",
+      "status": "received",
+      "by": "Ahmed Al-Mansoor",
+      "time": "2026-10-09T16:46:30.529Z",
+      "note": ""
+    },
+    {
+      "id": "TH-1791564390535",
+      "taskId": "TAS-1791564390523-3",
+      "status": "in_progress",
+      "by": "Ahmed Al-Mansoor",
+      "time": "2026-10-09T16:46:30.535Z",
+      "note": ""
+    },
+    {
+      "id": "TH-1791564390541",
+      "taskId": "TAS-1791564390523-3",
+      "status": "completed",
+      "by": "Ahmed Al-Mansoor",
+      "time": "2026-10-09T16:46:30.541Z",
+      "note": ""
+    }
+  ],
+  "messages": [
+    {
+      "id": "MES-1791564197748-1",
+      "officeId": "printing",
+      "senderRole": "director",
+      "senderName": "Dr. Mohammed Al-Qassim",
+      "senderUserId": "u1",
+      "content": "Official instruction: Prepare exam booklet batches.",
+      "createdAt": "2026-10-09T16:43:17.748Z",
+      "isRead": false
+    },
+    {
+      "id": "MES-1791564328949-2",
+      "officeId": "printing",
+      "senderRole": "director",
+      "senderName": "Dr. Mohammed Al-Qassim",
+      "senderUserId": "u1",
+      "content": "Official instruction: Prepare exam booklet batches.",
+      "createdAt": "2026-10-09T16:45:28.949Z",
+      "isRead": false
+    },
+    {
+      "id": "MES-1791564390499-3",
+      "officeId": "printing",
+      "senderRole": "director",
+      "senderName": "Dr. Mohammed Al-Qassim",
+      "senderUserId": "u1",
+      "content": "Official instruction: Prepare exam booklet batches.",
+      "createdAt": "2026-10-09T16:46:30.499Z",
+      "isRead": false
+    }
+  ],
+  "announcements": [
+    {
+      "id": "ANN-1791564328965-1",
+      "title": "Targeted Notice: Exam Schedule Revision",
+      "titleAr": "Targeted Notice: Exam Schedule Revision",
+      "content": "Please review updated examination schedule timeline.",
+      "sentBy": "Dr. Mohammed Al-Qassim",
+      "target": "printing,medical_library",
+      "createdAt": "2026-10-09T16:45:28.965Z"
+    },
+    {
+      "id": "ANN-1791564390516-2",
+      "title": "Targeted Notice: Exam Schedule Revision",
+      "titleAr": "Targeted Notice: Exam Schedule Revision",
+      "content": "Please review updated examination schedule timeline.",
+      "sentBy": "Dr. Mohammed Al-Qassim",
+      "target": "printing,medical_library",
+      "createdAt": "2026-10-09T16:46:30.516Z"
+    }
+  ],
+  "announcementDeliveries": [
+    {
+      "id": "AD-1791564328965-printing",
+      "announcementId": "ANN-1791564328965-1",
+      "officeId": "printing",
+      "officeName": "Printing Office",
+      "status": "delivered",
+      "deliveredAt": "2026-10-09T16:45:28.965Z",
+      "readAt": null
+    },
+    {
+      "id": "AD-1791564328965-medical_library",
+      "announcementId": "ANN-1791564328965-1",
+      "officeId": "medical_library",
+      "officeName": "Medical Library",
+      "status": "delivered",
+      "deliveredAt": "2026-10-09T16:45:28.965Z",
+      "readAt": null
+    },
+    {
+      "id": "AD-1791564390516-printing",
+      "announcementId": "ANN-1791564390516-2",
+      "officeId": "printing",
+      "officeName": "Printing Office",
+      "status": "delivered",
+      "deliveredAt": "2026-10-09T16:46:30.516Z",
+      "readAt": null
+    },
+    {
+      "id": "AD-1791564390516-medical_library",
+      "announcementId": "ANN-1791564390516-2",
+      "officeId": "medical_library",
+      "officeName": "Medical Library",
+      "status": "delivered",
+      "deliveredAt": "2026-10-09T16:46:30.516Z",
+      "readAt": null
+    }
+  ],
+  "auditLogs": [
+    {
+      "id": "LOG-1791564197157-1bie",
+      "type": "AUTH_LOGIN",
+      "action": "User \"Dr. Mohammed Al-Qassim\" (director) logged in successfully.",
+      "office": "System",
+      "actor": "Dr. Mohammed Al-Qassim",
+      "severity": "info",
+      "createdAt": "2026-10-09T16:43:17.157Z"
+    },
+    {
+      "id": "LOG-1791564197308-mxl0",
+      "type": "AUTH_LOGIN",
+      "action": "User \"Ahmed Al-Mansoor\" (office_manager) logged in successfully.",
+      "office": "printing",
+      "actor": "Ahmed Al-Mansoor",
+      "severity": "info",
+      "createdAt": "2026-10-09T16:43:17.308Z"
+    },
+    {
+      "id": "LOG-1791564197443-lre3",
+      "type": "AUTH_LOGIN",
+      "action": "User \"Hassan Al-Omari\" (office_manager) logged in successfully.",
+      "office": "medical_library",
+      "actor": "Hassan Al-Omari",
+      "severity": "info",
+      "createdAt": "2026-10-09T16:43:17.443Z"
+    },
+    {
+      "id": "LOG-1791564197586-39vj",
+      "type": "AUTH_LOGIN",
+      "action": "User \"Network Operations Center\" (it_admin) logged in successfully.",
+      "office": "System",
+      "actor": "Network Operations Center",
+      "severity": "info",
+      "createdAt": "2026-10-09T16:43:17.586Z"
+    },
+    {
+      "id": "LOG-1791564197749-kw0x",
+      "type": "MESSAGE_SENT",
+      "action": "Message sent to [Printing Office] by Dr. Mohammed Al-Qassim",
+      "office": "Printing Office",
+      "actor": "Dr. Mohammed Al-Qassim",
+      "severity": "info",
+      "createdAt": "2026-10-09T16:43:17.749Z"
+    },
+    {
+      "id": "LOG-1791564197770-dblh",
+      "type": "TASK_CREATED",
+      "action": "Task created: \"Print Grade Sheets - Fall Semester\" → [Printing Office] (Priority: high)",
+      "office": "Printing Office",
+      "actor": "Dr. Mohammed Al-Qassim",
+      "severity": "info",
+      "createdAt": "2026-10-09T16:43:17.770Z"
+    },
+    {
+      "id": "LOG-1791564197805-ivvj",
+      "type": "SCREEN_SESSION_STARTED",
+      "action": "Live screen view initiated on [Printing Office] by Dr. Mohammed Al-Qassim",
+      "office": "Printing Office",
+      "actor": "Dr. Mohammed Al-Qassim",
+      "severity": "warning",
+      "createdAt": "2026-10-09T16:43:17.805Z"
+    },
+    {
+      "id": "LOG-1791564197811-c8m2",
+      "type": "SCREEN_SESSION_CLOSED",
+      "action": "Live screen session ended for [printing]",
+      "office": "printing",
+      "actor": "Dr. Mohammed Al-Qassim",
+      "severity": "info",
+      "createdAt": "2026-10-09T16:43:17.811Z"
+    },
+    {
+      "id": "LOG-1791564328426-yc3o",
+      "type": "AUTH_LOGIN",
+      "action": "User \"Dr. Mohammed Al-Qassim\" (director) logged in successfully.",
+      "office": "System",
+      "actor": "Dr. Mohammed Al-Qassim",
+      "severity": "info",
+      "createdAt": "2026-10-09T16:45:28.426Z"
+    },
+    {
+      "id": "LOG-1791564328549-qvm8",
+      "type": "AUTH_LOGIN",
+      "action": "User \"Ahmed Al-Mansoor\" (office_manager) logged in successfully.",
+      "office": "printing",
+      "actor": "Ahmed Al-Mansoor",
+      "severity": "info",
+      "createdAt": "2026-10-09T16:45:28.549Z"
+    },
+    {
+      "id": "LOG-1791564328684-gy08",
+      "type": "AUTH_LOGIN",
+      "action": "User \"Hassan Al-Omari\" (office_manager) logged in successfully.",
+      "office": "medical_library",
+      "actor": "Hassan Al-Omari",
+      "severity": "info",
+      "createdAt": "2026-10-09T16:45:28.684Z"
+    },
+    {
+      "id": "LOG-1791564328818-vttq",
+      "type": "AUTH_LOGIN",
+      "action": "User \"Network Operations Center\" (it_admin) logged in successfully.",
+      "office": "System",
+      "actor": "Network Operations Center",
+      "severity": "info",
+      "createdAt": "2026-10-09T16:45:28.818Z"
+    },
+    {
+      "id": "LOG-1791564328950-bvp6",
+      "type": "MESSAGE_SENT",
+      "action": "Message sent to [Printing Office] by Dr. Mohammed Al-Qassim",
+      "office": "Printing Office",
+      "actor": "Dr. Mohammed Al-Qassim",
+      "severity": "info",
+      "createdAt": "2026-10-09T16:45:28.950Z"
+    },
+    {
+      "id": "LOG-1791564328966-f4bp",
+      "type": "ANNOUNCEMENT_BROADCAST",
+      "action": "Announcement: \"Targeted Notice: Exam Schedule Revision\" broadcast to 2 office(s)",
+      "office": "Printing Office, Medical Library",
+      "actor": "Dr. Mohammed Al-Qassim",
+      "severity": "high",
+      "createdAt": "2026-10-09T16:45:28.966Z"
+    },
+    {
+      "id": "LOG-1791564328973-l9xc",
+      "type": "TASK_CREATED",
+      "action": "Task created: \"Print Grade Sheets - Fall Semester\" → [Printing Office] (Priority: high)",
+      "office": "Printing Office",
+      "actor": "Dr. Mohammed Al-Qassim",
+      "severity": "info",
+      "createdAt": "2026-10-09T16:45:28.973Z"
+    },
+    {
+      "id": "LOG-1791564328979-lhzp",
+      "type": "TASK_STATUS_UPDATED",
+      "action": "Task [328972-2] status changed: new → received",
+      "office": "Printing Office",
+      "actor": "Ahmed Al-Mansoor",
+      "severity": "info",
+      "createdAt": "2026-10-09T16:45:28.979Z"
+    },
+    {
+      "id": "LOG-1791564329015-kg7f",
+      "type": "SCREEN_SESSION_STARTED",
+      "action": "Live screen view initiated on [Printing Office] by Dr. Mohammed Al-Qassim",
+      "office": "Printing Office",
+      "actor": "Dr. Mohammed Al-Qassim",
+      "severity": "warning",
+      "createdAt": "2026-10-09T16:45:29.015Z"
+    },
+    {
+      "id": "LOG-1791564329020-l7ei",
+      "type": "SCREEN_SESSION_CLOSED",
+      "action": "Live screen session ended for [printing]",
+      "office": "printing",
+      "actor": "Dr. Mohammed Al-Qassim",
+      "severity": "info",
+      "createdAt": "2026-10-09T16:45:29.020Z"
+    },
+    {
+      "id": "LOG-1791564389995-38lg",
+      "type": "AUTH_LOGIN",
+      "action": "User \"Dr. Mohammed Al-Qassim\" (director) logged in successfully.",
+      "office": "System",
+      "actor": "Dr. Mohammed Al-Qassim",
+      "severity": "info",
+      "createdAt": "2026-10-09T16:46:29.995Z"
+    },
+    {
+      "id": "LOG-1791564390120-in93",
+      "type": "AUTH_LOGIN",
+      "action": "User \"Ahmed Al-Mansoor\" (office_manager) logged in successfully.",
+      "office": "printing",
+      "actor": "Ahmed Al-Mansoor",
+      "severity": "info",
+      "createdAt": "2026-10-09T16:46:30.120Z"
+    },
+    {
+      "id": "LOG-1791564390241-ypuc",
+      "type": "AUTH_LOGIN",
+      "action": "User \"Hassan Al-Omari\" (office_manager) logged in successfully.",
+      "office": "medical_library",
+      "actor": "Hassan Al-Omari",
+      "severity": "info",
+      "createdAt": "2026-10-09T16:46:30.241Z"
+    },
+    {
+      "id": "LOG-1791564390360-wtc5",
+      "type": "AUTH_LOGIN",
+      "action": "User \"Network Operations Center\" (it_admin) logged in successfully.",
+      "office": "System",
+      "actor": "Network Operations Center",
+      "severity": "info",
+      "createdAt": "2026-10-09T16:46:30.360Z"
+    },
+    {
+      "id": "LOG-1791564390500-20zs",
+      "type": "MESSAGE_SENT",
+      "action": "Message sent to [Printing Office] by Dr. Mohammed Al-Qassim",
+      "office": "Printing Office",
+      "actor": "Dr. Mohammed Al-Qassim",
+      "severity": "info",
+      "createdAt": "2026-10-09T16:46:30.500Z"
+    },
+    {
+      "id": "LOG-1791564390517-im52",
+      "type": "ANNOUNCEMENT_BROADCAST",
+      "action": "Announcement: \"Targeted Notice: Exam Schedule Revision\" broadcast to 2 office(s)",
+      "office": "Printing Office, Medical Library",
+      "actor": "Dr. Mohammed Al-Qassim",
+      "severity": "high",
+      "createdAt": "2026-10-09T16:46:30.517Z"
+    },
+    {
+      "id": "LOG-1791564390525-bpne",
+      "type": "TASK_CREATED",
+      "action": "Task created: \"Print Grade Sheets - Fall Semester\" → [Printing Office] (Priority: high)",
+      "office": "Printing Office",
+      "actor": "Dr. Mohammed Al-Qassim",
+      "severity": "info",
+      "createdAt": "2026-10-09T16:46:30.525Z"
+    },
+    {
+      "id": "LOG-1791564390531-c31k",
+      "type": "TASK_STATUS_UPDATED",
+      "action": "Task [390523-3] status changed: new → received",
+      "office": "Printing Office",
+      "actor": "Ahmed Al-Mansoor",
+      "severity": "info",
+      "createdAt": "2026-10-09T16:46:30.531Z"
+    },
+    {
+      "id": "LOG-1791564390536-1ioq",
+      "type": "TASK_STATUS_UPDATED",
+      "action": "Task [390523-3] status changed: received → in_progress",
+      "office": "Printing Office",
+      "actor": "Ahmed Al-Mansoor",
+      "severity": "info",
+      "createdAt": "2026-10-09T16:46:30.536Z"
+    },
+    {
+      "id": "LOG-1791564390542-epmj",
+      "type": "TASK_STATUS_UPDATED",
+      "action": "Task [390523-3] status changed: in_progress → completed",
+      "office": "Printing Office",
+      "actor": "Ahmed Al-Mansoor",
+      "severity": "success",
+      "createdAt": "2026-10-09T16:46:30.542Z"
+    },
+    {
+      "id": "LOG-1791564390578-l8ju",
+      "type": "SCREEN_SESSION_STARTED",
+      "action": "Live screen view initiated on [Printing Office] by Dr. Mohammed Al-Qassim",
+      "office": "Printing Office",
+      "actor": "Dr. Mohammed Al-Qassim",
+      "severity": "warning",
+      "createdAt": "2026-10-09T16:46:30.578Z"
+    },
+    {
+      "id": "LOG-1791564390584-jot0",
+      "type": "SCREEN_SESSION_CLOSED",
+      "action": "Live screen session ended for [printing]",
+      "office": "printing",
+      "actor": "Dr. Mohammed Al-Qassim",
+      "severity": "info",
+      "createdAt": "2026-10-09T16:46:30.584Z"
+    }
+  ],
+  "screenSessions": [
+    {
+      "id": "SES-1791564197803-1",
+      "officeId": "printing",
+      "officeName": "Printing Office",
+      "manager": "Ahmed Al-Mansoor",
+      "computerName": "Printing-Main-PC",
+      "startedAt": "2026-10-09T16:43:17.804Z",
+      "endedAt": "2026-10-09T16:43:17.810Z",
+      "requestedBy": "Dr. Mohammed Al-Qassim",
+      "taskId": "TAS-1791564197769-1"
+    },
+    {
+      "id": "SES-1791564329014-2",
+      "officeId": "printing",
+      "officeName": "Printing Office",
+      "manager": "Ahmed Al-Mansoor",
+      "computerName": "Printing-Main-PC",
+      "startedAt": "2026-10-09T16:45:29.014Z",
+      "endedAt": "2026-10-09T16:45:29.019Z",
+      "requestedBy": "Dr. Mohammed Al-Qassim",
+      "taskId": "TAS-1791564328972-2"
+    },
+    {
+      "id": "SES-1791564390577-3",
+      "officeId": "printing",
+      "officeName": "Printing Office",
+      "manager": "Ahmed Al-Mansoor",
+      "computerName": "Printing-Main-PC",
+      "startedAt": "2026-10-09T16:46:30.577Z",
+      "endedAt": "2026-10-09T16:46:30.582Z",
+      "requestedBy": "Dr. Mohammed Al-Qassim",
+      "taskId": "TAS-1791564390523-3"
+    }
+  ],
+  "attachments": [
+    {
+      "id": "ATT-1791564197797-1",
+      "filename": "1791564197787-37jgv0.txt",
+      "originalName": "official-directive.txt",
+      "mimeType": "text/plain",
+      "size": 57,
+      "uploadedBy": "u1",
+      "uploadedAt": "2026-10-09T16:43:17.797Z",
+      "taskId": null
+    },
+    {
+      "id": "ATT-1791564329003-2",
+      "filename": "1791564328994-5r996m.txt",
+      "originalName": "official-directive.txt",
+      "mimeType": "text/plain",
+      "size": 57,
+      "uploadedBy": "u1",
+      "uploadedAt": "2026-10-09T16:45:29.003Z",
+      "taskId": null
+    },
+    {
+      "id": "ATT-1791564390566-3",
+      "filename": "1791564390554-j0yneo.txt",
+      "originalName": "official-directive.txt",
+      "mimeType": "text/plain",
+      "size": 57,
+      "uploadedBy": "u1",
+      "uploadedAt": "2026-10-09T16:46:30.566Z",
+      "taskId": null
+    }
+  ],
+  "_counters": {
+    "tasks": 3,
+    "messages": 3,
+    "announcements": 2,
+    "sessions": 3,
+    "attachments": 3
+  }
+}

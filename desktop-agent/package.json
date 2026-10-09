@@ -1,0 +1,13 @@
+{
+  "name": "university-office-desktop-agent",
+  "version": "2.4.1",
+  "description": "University Operations Desktop Client Agent for Office Workstations",
+  "type": "module",
+  "main": "agent.js",
+  "scripts": {
+    "start": "node agent.js"
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  }
+}

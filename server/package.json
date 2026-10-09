@@ -1,0 +1,20 @@
+{
+  "name": "university-ops-server",
+  "version": "1.0.0",
+  "description": "Central University Control Center & Office Operations Real-time Backend",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "express-rate-limit": "^8.7.1",
+    "jsonwebtoken": "^9.0.3",
+    "multer": "^2.4.0",
+    "ws": "^8.18.0"
+  }
+}
