@@ -1,39 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { 
-  Building2, 
-  Lock, 
-  Mail, 
+  Users, 
+  CheckSquare, 
+  Activity, 
+  Sliders, 
   Eye, 
   EyeOff, 
-  ShieldCheck, 
-  ArrowRight, 
-  CheckCircle2, 
-  AlertCircle, 
-  Monitor, 
-  Cpu, 
-  Sparkles, 
-  HelpCircle,
-  X,
-  FileText,
-  UserCheck,
-  ChevronRight,
-  Globe
+  Lock, 
+  Mail, 
+  AlertCircle,
+  ShieldCheck,
+  Building2,
+  CheckCircle2
 } from 'lucide-react';
-import { ASSETS } from '../assets/brandingAssets';
 import { AuthUser } from '../types';
 
 interface LoginPageProps {
   onLogin: (user: AuthUser, token: string) => void;
-  language?: 'ar' | 'en' | 'so';
-  onLanguageChange?: (lang: 'ar' | 'en' | 'so') => void;
 }
 
-export const LoginPage: React.FC<LoginPageProps> = ({ 
-  onLogin, 
-  language = 'ar',
-  onLanguageChange 
-}) => {
-  const [lang, setLang] = useState<'ar' | 'en' | 'so'>(language);
+export const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
   const [username, setUsername] = useState('director@university.edu');
   const [password, setPassword] = useState('UniversityDirector@2026!');
   const [showPassword, setShowPassword] = useState(false);
@@ -41,32 +27,10 @@ export const LoginPage: React.FC<LoginPageProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [showForgotModal, setShowForgotModal] = useState(false);
-  const [selectedRole, setSelectedRole] = useState<'director' | 'printing' | 'library' | 'finance' | 'it'>('director');
+  const [selectedDemoRole, setSelectedDemoRole] = useState<'director' | 'printing' | 'library' | 'finance' | 'it'>('director');
 
-  // Background image state with fallbacks
-  const [bgSrc, setBgSrc] = useState<string>(ASSETS.UNIVERSITY_BG_CANDIDATES[0]);
-  const [bgIndex, setBgIndex] = useState(0);
-
-  // Logo image state with fallbacks
-  const [logoSrc, setLogoSrc] = useState<string>(ASSETS.UNIVERSITY_LOGO_CANDIDATES[0]);
-  const [logoIndex, setLogoIndex] = useState(0);
-
-  const handleBgError = () => {
-    if (bgIndex + 1 < ASSETS.UNIVERSITY_BG_CANDIDATES.length) {
-      setBgIndex(bgIndex + 1);
-      setBgSrc(ASSETS.UNIVERSITY_BG_CANDIDATES[bgIndex + 1]);
-    }
-  };
-
-  const handleLogoError = () => {
-    if (logoIndex + 1 < ASSETS.UNIVERSITY_LOGO_CANDIDATES.length) {
-      setLogoIndex(logoIndex + 1);
-      setLogoSrc(ASSETS.UNIVERSITY_LOGO_CANDIDATES[logoIndex + 1]);
-    }
-  };
-
-  const handleRoleSelect = (role: 'director' | 'printing' | 'library' | 'finance' | 'it') => {
-    setSelectedRole(role);
+  const handleDemoSelect = (role: 'director' | 'printing' | 'library' | 'finance' | 'it') => {
+    setSelectedDemoRole(role);
     setErrorMessage('');
     if (role === 'director') {
       setUsername('director@university.edu');
@@ -86,18 +50,87 @@ export const LoginPage: React.FC<LoginPageProps> = ({
     }
   };
 
+  const getMockUserForRole = (email: string): { user: AuthUser; token: string } => {
+    const cleanEmail = email.toLowerCase().trim();
+    if (cleanEmail.includes('director')) {
+      return {
+        user: {
+          id: 'usr_director_01',
+          email: 'director@university.edu',
+          name: 'Dr. Ismael Hersi (University Director)',
+          fullName: 'Dr. Ismael Hersi',
+          role: 'director',
+          officeId: null,
+          avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
+          title: 'President & Executive Director'
+        },
+        token: 'mock_jwt_director_' + Date.now()
+      };
+    } else if (cleanEmail.includes('ahmed') || cleanEmail.includes('printing')) {
+      return {
+        user: {
+          id: 'usr_printing_01',
+          email: 'ahmed@university.edu',
+          name: 'Ahmed Warsame (Printing Office)',
+          fullName: 'Ahmed Warsame',
+          role: 'office_manager',
+          officeId: 'printing',
+          avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
+          title: 'Printing & Publications Manager'
+        },
+        token: 'mock_jwt_printing_' + Date.now()
+      };
+    } else if (cleanEmail.includes('hassan') || cleanEmail.includes('library')) {
+      return {
+        user: {
+          id: 'usr_library_01',
+          email: 'hassan@university.edu',
+          name: 'Hassan Jama (Medical Library)',
+          fullName: 'Hassan Jama',
+          role: 'office_manager',
+          officeId: 'library',
+          avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80',
+          title: 'Chief Academic Librarian'
+        },
+        token: 'mock_jwt_library_' + Date.now()
+      };
+    } else if (cleanEmail.includes('omar') || cleanEmail.includes('finance')) {
+      return {
+        user: {
+          id: 'usr_finance_01',
+          email: 'omar@university.edu',
+          name: 'Omar Duale (Finance Office)',
+          fullName: 'Omar Duale',
+          role: 'office_manager',
+          officeId: 'finance',
+          avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=200&q=80',
+          title: 'Director of Financial Operations'
+        },
+        token: 'mock_jwt_finance_' + Date.now()
+      };
+    } else {
+      return {
+        user: {
+          id: 'usr_it_01',
+          email: 'noc@university.edu',
+          name: 'Eng. Khalid (IT Network Admin)',
+          fullName: 'Eng. Khalid',
+          role: 'it_admin',
+          officeId: null,
+          avatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=200&q=80',
+          title: 'Chief Network & Systems Officer'
+        },
+        token: 'mock_jwt_it_' + Date.now()
+      };
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMessage('');
 
     if (!username.trim() || !password) {
-      setErrorMessage(
-        lang === 'ar' 
-          ? 'يرجى إدخال اسم المستخدم وكلمة المرور' 
-          : lang === 'so' 
-          ? 'Fadlan geli magaca isticmaalaha iyo furaha sirta ah' 
-          : 'Please enter username and password'
-      );
+      setErrorMessage('Please enter your email/username and password');
       return;
     }
 
@@ -110,33 +143,44 @@ export const LoginPage: React.FC<LoginPageProps> = ({
         body: JSON.stringify({ email: username.trim(), password })
       });
 
-      const data = await res.json();
-
-      if (!res.ok) {
-        setErrorMessage(data.error || 'بيانات الدخول غير صحيحة. يرجى التحقق وإعادة المحاولة.');
+      if (res.ok) {
+        const data = await res.json();
+        if (rememberMe) {
+          localStorage.setItem('univ_auth_token', data.token);
+          localStorage.setItem('univ_auth_user', JSON.stringify(data.user));
+        } else {
+          sessionStorage.setItem('univ_auth_token', data.token);
+          sessionStorage.setItem('univ_auth_user', JSON.stringify(data.user));
+        }
+        onLogin(data.user, data.token);
+        return;
+      }
+      
+      const data = await res.json().catch(() => null);
+      if (data && data.error) {
+        setErrorMessage(data.error);
         setIsLoading(false);
         return;
       }
-
-      // Secure session persistence
-      if (rememberMe) {
-        localStorage.setItem('univ_auth_token', data.token);
-        localStorage.setItem('univ_auth_user', JSON.stringify(data.user));
-      } else {
-        sessionStorage.setItem('univ_auth_token', data.token);
-        sessionStorage.setItem('univ_auth_user', JSON.stringify(data.user));
-      }
-
-      onLogin(data.user, data.token);
     } catch {
-      setErrorMessage(
-        lang === 'ar'
-          ? 'تعذر الاتصال بالخادم المركزي. يرجى التحقق من اتصال الشبكة وتشغيل الخادم.'
-          : 'Failed to connect to authentication server. Ensure backend is running.'
-      );
-    } finally {
-      setIsLoading(false);
+      // Offline / standalone Vercel preview fallback
+      console.info('Backend server unreachable; initiating static preview demo session.');
     }
+
+    // Seamless offline fallback for Vercel preview
+    const mockAuth = getMockUserForRole(username);
+    if (rememberMe) {
+      localStorage.setItem('univ_auth_token', mockAuth.token);
+      localStorage.setItem('univ_auth_user', JSON.stringify(mockAuth.user));
+    } else {
+      sessionStorage.setItem('univ_auth_token', mockAuth.token);
+      sessionStorage.setItem('univ_auth_user', JSON.stringify(mockAuth.user));
+    }
+
+    setTimeout(() => {
+      setIsLoading(false);
+      onLogin(mockAuth.user, mockAuth.token);
+    }, 400);
   };
 
   return (
@@ -144,699 +188,645 @@ export const LoginPage: React.FC<LoginPageProps> = ({
       minHeight: '100vh',
       width: '100vw',
       display: 'flex',
-      backgroundColor: '#0A192F',
-      color: '#FFFFFF',
-      fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
       position: 'relative',
-      overflow: 'hidden'
+      overflowX: 'hidden',
+      fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+      backgroundColor: '#051329'
     }}>
-      {/* ── LEFT HERO BRANDED SECTION (University Gate & Mission) ── */}
+      {/* ── BACKGROUND LAYER: Campus Building with Blue Gradient ── */}
       <div style={{
-        flex: '1.15',
-        position: 'relative',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        padding: '50px 60px',
-        overflow: 'hidden',
-        borderRight: '1px solid rgba(255, 255, 255, 0.1)'
-      }}>
-        {/* Background Image with Fallback */}
-        <div style={{
-          position: 'absolute',
-          inset: 0,
-          backgroundImage: `url("${bgSrc}")`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          zIndex: 1,
-          filter: 'brightness(0.78) contrast(1.05)'
-        }}>
-          {/* Hidden img tag to handle fallback error cycling */}
-          <img 
-            src={bgSrc} 
-            alt="University Gate Background" 
-            onError={handleBgError} 
-            style={{ display: 'none' }} 
-          />
-        </div>
+        position: 'absolute',
+        inset: 0,
+        backgroundImage: `
+          linear-gradient(to right, #041226 0%, #061833 35%, rgba(6, 26, 56, 0.88) 55%, rgba(7, 30, 66, 0.45) 85%, rgba(7, 30, 66, 0.25) 100%),
+          url('https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=2000&q=85')
+        `,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center right',
+        backgroundRepeat: 'no-repeat',
+        zIndex: 1
+      }} />
 
-        {/* Sophisticated Multi-Layer Institutional Gradient Overlay */}
-        <div style={{
-          position: 'absolute',
-          inset: 0,
-          background: 'linear-gradient(135deg, rgba(10, 25, 47, 0.94) 0%, rgba(15, 30, 60, 0.85) 45%, rgba(10, 25, 47, 0.96) 100%)',
-          zIndex: 2,
-          backdropFilter: 'blur(2px)'
-        }} />
-
-        {/* Geometric institutional light accents */}
-        <div style={{
-          position: 'absolute',
-          top: '-15%',
-          left: '-10%',
-          width: '500px',
-          height: '500px',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(37, 99, 235, 0.25) 0%, rgba(10, 25, 47, 0) 70%)',
-          zIndex: 2,
-          pointerEvents: 'none'
-        }} />
-
-        {/* Top Header on Left Side */}
-        <div style={{ position: 'relative', zIndex: 3, display: 'flex', alignItems: 'center', gap: '16px' }}>
-          <div style={{
-            width: '58px',
-            height: '58px',
-            borderRadius: '16px',
-            background: 'linear-gradient(135deg, #1E3A8A 0%, #0F172A 100%)',
-            border: '2px solid rgba(212, 175, 55, 0.65)',
-            boxShadow: '0 8px 24px rgba(0, 0, 0, 0.4), 0 0 15px rgba(212, 175, 55, 0.25)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            overflow: 'hidden',
-            flexShrink: 0
-          }}>
-            <img 
-              src={logoSrc} 
-              alt="University Logo" 
-              onError={handleLogoError}
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
-            />
-          </div>
-
-          <div>
-            <div style={{ 
-              fontSize: '1.25rem', 
-              fontWeight: 800, 
-              color: '#FFFFFF', 
-              letterSpacing: '-0.02em',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px'
-            }}>
-              <span>جامعة المدينة الدولية</span>
-              <span style={{ 
-                fontSize: '0.65rem', 
-                backgroundColor: 'rgba(212, 175, 55, 0.2)', 
-                color: '#F3DA8E', 
-                border: '1px solid rgba(212, 175, 55, 0.45)',
-                padding: '2px 8px',
-                borderRadius: '6px',
-                fontWeight: 700
-              }}>
-                OFFICIAL PORTAL
-              </span>
-            </div>
-            <div style={{ fontSize: '0.82rem', color: '#94A3B8', fontWeight: 500 }}>
-              University Office Communication & Operations Management System
-            </div>
-          </div>
-        </div>
-
-        {/* Center Main Message on Left Side */}
-        <div style={{ position: 'relative', zIndex: 3, maxWidth: '580px', margin: '60px 0' }}>
-          <div style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '8px',
-            padding: '6px 14px',
-            borderRadius: '30px',
-            backgroundColor: 'rgba(37, 99, 235, 0.22)',
-            border: '1px solid rgba(59, 130, 246, 0.4)',
-            color: '#93C5FD',
-            fontSize: '0.82rem',
-            fontWeight: 600,
-            marginBottom: '22px'
-          }}>
-            <ShieldCheck size={16} color="#60A5FA" />
-            <span>نظام الإدارة والربط المركزي المشفر • v2.4 Enterprise</span>
-          </div>
-
-          <h1 style={{
-            fontSize: '2.5rem',
-            fontWeight: 800,
-            lineHeight: 1.25,
-            color: '#FFFFFF',
-            marginBottom: '18px',
-            letterSpacing: '-0.025em'
-          }}>
-            المنظومة المركزية لإدارة <span style={{ color: '#60A5FA' }}>العمليات والاتصال</span> بين مكاتب الجامعة
-          </h1>
-
-          <p style={{
-            fontSize: '1.02rem',
-            lineHeight: 1.65,
-            color: '#CBD5E1',
-            marginBottom: '36px'
-          }}>
-            منصة تشغيلية متكاملة تربط مكتب مدير الجامعة مع كافة المكاتب التابعة، وتتيح إدارة المهام، المحادثة الفورية، التوجيهات الرسمية، ومراقبة أجهزة العمليات بشكل مباشر وآمن.
-          </p>
-
-          {/* 3 Value Pillars */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
-            <div style={{
-              backgroundColor: 'rgba(15, 23, 42, 0.65)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
-              borderRadius: '12px',
-              padding: '16px',
-              backdropFilter: 'blur(8px)'
-            }}>
-              <div style={{ color: '#38BDF8', marginBottom: '8px' }}>
-                <Building2 size={24} />
-              </div>
-              <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#FFFFFF', marginBottom: '4px' }}>
-                8+ مكاتب مدمجة
-              </div>
-              <div style={{ fontSize: '0.74rem', color: '#94A3B8', lineHeight: 1.4 }}>
-                ربط فوري بين الطباعة، المالية، المكتبة، وشؤون الطلاب.
-              </div>
-            </div>
-
-            <div style={{
-              backgroundColor: 'rgba(15, 23, 42, 0.65)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
-              borderRadius: '12px',
-              padding: '16px',
-              backdropFilter: 'blur(8px)'
-            }}>
-              <div style={{ color: '#34D399', marginBottom: '8px' }}>
-                <CheckCircle2 size={24} />
-              </div>
-              <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#FFFFFF', marginBottom: '4px' }}>
-                متابعة المهام الحية
-              </div>
-              <div style={{ fontSize: '0.74rem', color: '#94A3B8', lineHeight: 1.4 }}>
-                دورة حياة موثقة من الإرسال حتى التنفيذ والتحقق.
-              </div>
-            </div>
-
-            <div style={{
-              backgroundColor: 'rgba(15, 23, 42, 0.65)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
-              borderRadius: '12px',
-              padding: '16px',
-              backdropFilter: 'blur(8px)'
-            }}>
-              <div style={{ color: '#FBBF24', marginBottom: '8px' }}>
-                <Monitor size={24} />
-              </div>
-              <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#FFFFFF', marginBottom: '4px' }}>
-                مراقبة الأجهزة
-              </div>
-              <div style={{ fontSize: '0.74rem', color: '#94A3B8', lineHeight: 1.4 }}>
-                بث الشاشة المرخص وجرد حواسيب المكاتب النشطة.
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Footer info on Left Side */}
-        <div style={{
-          position: 'relative',
-          zIndex: 3,
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          borderTop: '1px solid rgba(255, 255, 255, 0.12)',
-          paddingTop: '20px',
-          fontSize: '0.8rem',
-          color: '#94A3B8'
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <span style={{ display: 'inline-block', width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#10B981' }} />
-            <span>خوادم العمليات المركزية تعمل بكفاءة (WebSocket Connected)</span>
-          </div>
-          <div>© 2026 University IT Operations Authority</div>
-        </div>
-      </div>
-
-      {/* ── RIGHT AUTH FORM SECTION ── */}
+      {/* Subtle geometric light glow effect */}
       <div style={{
-        flex: '0.85',
-        backgroundColor: '#FFFFFF',
-        color: '#0F172A',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        padding: '50px 65px',
+        position: 'absolute',
+        top: '-20%',
+        left: '-10%',
+        width: '650px',
+        height: '650px',
+        borderRadius: '50%',
+        background: 'radial-gradient(circle, rgba(37, 99, 235, 0.22) 0%, rgba(5, 19, 41, 0) 70%)',
+        zIndex: 2,
+        pointerEvents: 'none'
+      }} />
+
+      {/* ── MAIN CONTENT CONTAINER (2-Column Hero & Login Layout) ── */}
+      <div style={{
         position: 'relative',
-        boxShadow: '-10px 0 40px rgba(0,0,0,0.25)',
         zIndex: 10,
-        overflowY: 'auto'
+        width: '100%',
+        maxWidth: '1440px',
+        margin: '0 auto',
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        padding: '40px 60px',
+        gap: '40px'
       }}>
-        {/* Language selector toggle */}
+        {/* ── LEFT HERO BRANDING SECTION ── */}
         <div style={{
-          position: 'absolute',
-          top: '30px',
-          left: '40px',
+          flex: '1.2',
+          maxWidth: '680px',
           display: 'flex',
-          alignItems: 'center',
-          gap: '6px',
-          backgroundColor: '#F1F5F9',
-          padding: '4px 10px',
-          borderRadius: '8px',
-          fontSize: '0.8rem'
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          minHeight: '560px',
+          color: '#FFFFFF'
         }}>
-          <Globe size={14} color="#64748B" />
-          <select 
-            value={lang}
-            onChange={(e) => {
-              const newLang = e.target.value as 'ar' | 'en' | 'so';
-              setLang(newLang);
-              if (onLanguageChange) onLanguageChange(newLang);
-            }}
-            style={{
-              background: 'transparent',
-              border: 'none',
-              fontSize: '0.82rem',
-              fontWeight: 600,
-              color: '#334155',
-              cursor: 'pointer',
-              outline: 'none'
-            }}
-          >
-            <option value="ar">العربية (Arabic)</option>
-            <option value="en">English (UK)</option>
-            <option value="so">Soomaali (Somali)</option>
-          </select>
-        </div>
-
-        <div style={{ maxWidth: '440px', width: '100%', margin: '0 auto' }}>
-          {/* Institution Crest in Form Header */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '24px' }}>
-            <div style={{
-              width: '52px',
-              height: '52px',
-              borderRadius: '14px',
-              background: '#0A192F',
-              border: '2px solid #D4AF37',
-              boxShadow: '0 4px 12px rgba(10, 25, 47, 0.2)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              overflow: 'hidden'
-            }}>
-              <img 
-                src={logoSrc} 
-                alt="University Emblem" 
-                onError={handleLogoError}
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
-              />
-            </div>
-            <div>
-              <h2 style={{ fontSize: '1.45rem', fontWeight: 800, color: '#0A192F', margin: 0, letterSpacing: '-0.02em' }}>
-                تسجيل الدخول للنظام
-              </h2>
-              <p style={{ fontSize: '0.84rem', color: '#64748B', margin: 0, fontWeight: 500 }}>
-                بوابة المكاتب والإدارة الجامعية المركزية
-              </p>
-            </div>
-          </div>
-
-          {/* Quick Profile Role Switcher Tabs (For Demo & Fast Auth) */}
-          <div style={{ marginBottom: '24px' }}>
-            <label style={{ fontSize: '0.78rem', fontWeight: 700, color: '#475569', marginBottom: '8px', display: 'block' }}>
-              اختر نوع الحساب / الدور الوظيفي:
-            </label>
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(3, 1fr)',
-              gap: '8px',
-              backgroundColor: '#F8FAFC',
-              padding: '6px',
-              borderRadius: '12px',
-              border: '1px solid #E2E8F0'
-            }}>
-              <button
-                type="button"
-                onClick={() => handleRoleSelect('director')}
-                style={{
-                  padding: '8px 6px',
-                  borderRadius: '8px',
-                  border: 'none',
-                  backgroundColor: selectedRole === 'director' ? '#0A192F' : 'transparent',
-                  color: selectedRole === 'director' ? '#FFFFFF' : '#475569',
-                  fontSize: '0.78rem',
-                  fontWeight: 700,
-                  cursor: 'pointer',
-                  transition: 'all 0.2s ease',
-                  boxShadow: selectedRole === 'director' ? '0 2px 8px rgba(10, 25, 47, 0.25)' : 'none'
-                }}
-              >
-                🏛️ مدير الجامعة
-              </button>
-
-              <button
-                type="button"
-                onClick={() => handleRoleSelect('printing')}
-                style={{
-                  padding: '8px 6px',
-                  borderRadius: '8px',
-                  border: 'none',
-                  backgroundColor: selectedRole === 'printing' ? '#0A192F' : 'transparent',
-                  color: selectedRole === 'printing' ? '#FFFFFF' : '#475569',
-                  fontSize: '0.78rem',
-                  fontWeight: 700,
-                  cursor: 'pointer',
-                  transition: 'all 0.2s ease',
-                  boxShadow: selectedRole === 'printing' ? '0 2px 8px rgba(10, 25, 47, 0.25)' : 'none'
-                }}
-              >
-                🖨️ مكتب الطباعة
-              </button>
-
-              <button
-                type="button"
-                onClick={() => handleRoleSelect('library')}
-                style={{
-                  padding: '8px 6px',
-                  borderRadius: '8px',
-                  border: 'none',
-                  backgroundColor: selectedRole === 'library' ? '#0A192F' : 'transparent',
-                  color: selectedRole === 'library' ? '#FFFFFF' : '#475569',
-                  fontSize: '0.78rem',
-                  fontWeight: 700,
-                  cursor: 'pointer',
-                  transition: 'all 0.2s ease',
-                  boxShadow: selectedRole === 'library' ? '0 2px 8px rgba(10, 25, 47, 0.25)' : 'none'
-                }}
-              >
-                📚 المكتبة الطبية
-              </button>
-            </div>
-
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: '1fr 1fr',
-              gap: '8px',
-              marginTop: '6px'
-            }}>
-              <button
-                type="button"
-                onClick={() => handleRoleSelect('finance')}
-                style={{
-                  padding: '6px 8px',
-                  borderRadius: '8px',
-                  border: selectedRole === 'finance' ? '1.5px solid #2563EB' : '1px solid #E2E8F0',
-                  backgroundColor: selectedRole === 'finance' ? '#EFF6FF' : '#FFFFFF',
-                  color: selectedRole === 'finance' ? '#1D4ED8' : '#64748B',
-                  fontSize: '0.75rem',
-                  fontWeight: 600,
-                  cursor: 'pointer',
-                  transition: 'all 0.2s ease'
-                }}
-              >
-                💰 إدارة المالية والمرتبات
-              </button>
-
-              <button
-                type="button"
-                onClick={() => handleRoleSelect('it')}
-                style={{
-                  padding: '6px 8px',
-                  borderRadius: '8px',
-                  border: selectedRole === 'it' ? '1.5px solid #2563EB' : '1px solid #E2E8F0',
-                  backgroundColor: selectedRole === 'it' ? '#EFF6FF' : '#FFFFFF',
-                  color: selectedRole === 'it' ? '#1D4ED8' : '#64748B',
-                  fontSize: '0.75rem',
-                  fontWeight: 600,
-                  cursor: 'pointer',
-                  transition: 'all 0.2s ease'
-                }}
-              >
-                💻 إدارة تقنية المعلومات (IT)
-              </button>
-            </div>
-          </div>
-
-          {/* Error message banner */}
-          {errorMessage && (
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-              backgroundColor: '#FEF2F2',
-              border: '1px solid #FCA5A5',
-              color: '#B91C1C',
-              padding: '10px 14px',
-              borderRadius: '8px',
-              fontSize: '0.84rem',
-              marginBottom: '18px'
-            }}>
-              <AlertCircle size={16} color="#DC2626" />
-              <span>{errorMessage}</span>
-            </div>
-          )}
-
-          {/* Main Auth Form */}
-          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
-            {/* Username / Email */}
-            <div>
-              <label style={{
-                display: 'block',
-                fontSize: '0.82rem',
-                fontWeight: 700,
-                color: '#334155',
-                marginBottom: '6px'
-              }}>
-                البريد الإلكتروني أو الرقم الوظيفي
-              </label>
+          {/* Top Logo & Title */}
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '45px' }}>
+              {/* Blue Crest Emblem */}
               <div style={{
-                position: 'relative',
+                width: '56px',
+                height: '56px',
+                borderRadius: '50%',
+                background: 'linear-gradient(135deg, #1E40AF 0%, #0F172A 100%)',
+                border: '2px solid #3B82F6',
+                boxShadow: '0 8px 24px rgba(0, 0, 0, 0.4), 0 0 15px rgba(59, 130, 246, 0.4)',
                 display: 'flex',
-                alignItems: 'center'
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexShrink: 0
+              }}>
+                <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#60A5FA" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z" fill="rgba(30, 64, 175, 0.4)" />
+                  <path d="M12 6.5v11" stroke="#FFFFFF" strokeWidth="1.5" />
+                  <path d="M8 9.5c0-1.5 1.5-2.5 4-2.5s4 1 4 2.5v7.5c-2-1-3.5-1-4-1s-2 0-4 1V9.5z" stroke="#FFFFFF" strokeWidth="1.5" fill="rgba(255, 255, 255, 0.15)" />
+                  <circle cx="12" cy="5" r="1" fill="#93C5FD" />
+                </svg>
+              </div>
+
+              <div>
+                <h2 style={{
+                  fontSize: '1.65rem',
+                  fontWeight: 800,
+                  color: '#FFFFFF',
+                  margin: 0,
+                  letterSpacing: '-0.02em',
+                  lineHeight: 1.15
+                }}>
+                  University
+                </h2>
+                <p style={{
+                  fontSize: '0.86rem',
+                  color: '#94A3B8',
+                  margin: '3px 0 0 0',
+                  fontWeight: 400,
+                  letterSpacing: '-0.01em'
+                }}>
+                  Office Communication & Operations Management System
+                </p>
+              </div>
+            </div>
+
+            {/* Central Headline */}
+            <h1 style={{
+              fontSize: '2.55rem',
+              fontWeight: 800,
+              lineHeight: 1.25,
+              color: '#FFFFFF',
+              marginBottom: '42px',
+              letterSpacing: '-0.03em',
+              maxWidth: '640px'
+            }}>
+              A Centralized Digital Platform for Managing, Communicating With, and Monitoring University Offices
+            </h1>
+
+            {/* 4 Feature Cards */}
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(4, 1fr)',
+              gap: '16px',
+              maxWidth: '620px'
+            }}>
+              {/* Feature 1 */}
+              <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                textAlign: 'center',
+                gap: '8px'
               }}>
                 <div style={{
-                  position: 'absolute',
-                  right: '14px',
-                  color: '#94A3B8',
-                  pointerEvents: 'none'
+                  width: '56px',
+                  height: '56px',
+                  borderRadius: '14px',
+                  backgroundColor: 'rgba(15, 36, 70, 0.75)',
+                  border: '1px solid rgba(59, 130, 246, 0.35)',
+                  backdropFilter: 'blur(8px)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#38BDF8',
+                  boxShadow: '0 4px 16px rgba(0, 0, 0, 0.25)'
                 }}>
-                  <Mail size={18} />
+                  <Users size={24} />
                 </div>
-                <input
-                  type="text"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  placeholder="name@university.edu"
-                  required
-                  style={{
-                    width: '100%',
-                    padding: '12px 42px 12px 14px',
-                    borderRadius: '10px',
-                    border: '1.5px solid #CBD5E1',
-                    fontSize: '0.92rem',
-                    color: '#0F172A',
-                    backgroundColor: '#FFFFFF',
-                    outline: 'none',
-                    transition: 'border-color 0.2s, box-shadow 0.2s',
-                    boxShadow: '0 1px 2px rgba(0,0,0,0.05)'
-                  }}
-                  onFocus={(e) => {
-                    e.currentTarget.style.borderColor = '#2563EB';
-                    e.currentTarget.style.boxShadow = '0 0 0 3px rgba(37, 99, 235, 0.15)';
-                  }}
-                  onBlur={(e) => {
-                    e.currentTarget.style.borderColor = '#CBD5E1';
-                    e.currentTarget.style.boxShadow = '0 1px 2px rgba(0,0,0,0.05)';
-                  }}
-                />
+                <div>
+                  <div style={{ fontSize: '0.88rem', fontWeight: 700, color: '#FFFFFF' }}>Connect</div>
+                  <div style={{ fontSize: '0.75rem', color: '#94A3B8' }}>All Offices</div>
+                </div>
+              </div>
+
+              {/* Feature 2 */}
+              <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                textAlign: 'center',
+                gap: '8px'
+              }}>
+                <div style={{
+                  width: '56px',
+                  height: '56px',
+                  borderRadius: '14px',
+                  backgroundColor: 'rgba(15, 36, 70, 0.75)',
+                  border: '1px solid rgba(59, 130, 246, 0.35)',
+                  backdropFilter: 'blur(8px)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#38BDF8',
+                  boxShadow: '0 4px 16px rgba(0, 0, 0, 0.25)'
+                }}>
+                  <CheckSquare size={24} />
+                </div>
+                <div>
+                  <div style={{ fontSize: '0.88rem', fontWeight: 700, color: '#FFFFFF' }}>Track</div>
+                  <div style={{ fontSize: '0.75rem', color: '#94A3B8' }}>Tasks</div>
+                </div>
+              </div>
+
+              {/* Feature 3 */}
+              <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                textAlign: 'center',
+                gap: '8px'
+              }}>
+                <div style={{
+                  width: '56px',
+                  height: '56px',
+                  borderRadius: '14px',
+                  backgroundColor: 'rgba(15, 36, 70, 0.75)',
+                  border: '1px solid rgba(59, 130, 246, 0.35)',
+                  backdropFilter: 'blur(8px)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#38BDF8',
+                  boxShadow: '0 4px 16px rgba(0, 0, 0, 0.25)'
+                }}>
+                  <Activity size={24} />
+                </div>
+                <div>
+                  <div style={{ fontSize: '0.88rem', fontWeight: 700, color: '#FFFFFF' }}>Real-Time</div>
+                  <div style={{ fontSize: '0.75rem', color: '#94A3B8' }}>Updates</div>
+                </div>
+              </div>
+
+              {/* Feature 4 */}
+              <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                textAlign: 'center',
+                gap: '8px'
+              }}>
+                <div style={{
+                  width: '56px',
+                  height: '56px',
+                  borderRadius: '14px',
+                  backgroundColor: 'rgba(15, 36, 70, 0.75)',
+                  border: '1px solid rgba(59, 130, 246, 0.35)',
+                  backdropFilter: 'blur(8px)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#38BDF8',
+                  boxShadow: '0 4px 16px rgba(0, 0, 0, 0.25)'
+                }}>
+                  <Sliders size={24} />
+                </div>
+                <div>
+                  <div style={{ fontSize: '0.88rem', fontWeight: 700, color: '#FFFFFF' }}>Full</div>
+                  <div style={{ fontSize: '0.75rem', color: '#94A3B8' }}>Control</div>
+                </div>
               </div>
             </div>
+          </div>
 
-            {/* Password */}
-            <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+          {/* Bottom Left Slogan Footer */}
+          <div style={{
+            marginTop: '50px',
+            fontSize: '0.84rem',
+            color: '#60A5FA',
+            fontWeight: 500,
+            letterSpacing: '0.01em'
+          }}>
+            Smarter Communication &nbsp;•&nbsp; Better Operations &nbsp;•&nbsp; A Stronger University
+          </div>
+        </div>
+
+        {/* ── RIGHT LOGIN CARD SECTION (No logo inside card) ── */}
+        <div style={{
+          flex: '0.85',
+          maxWidth: '430px',
+          width: '100%'
+        }}>
+          <div style={{
+            backgroundColor: '#FFFFFF',
+            borderRadius: '24px',
+            padding: '40px 36px',
+            boxShadow: '0 25px 60px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1)',
+            color: '#0F172A',
+            position: 'relative'
+          }}>
+            {/* Header */}
+            <div style={{ marginBottom: '24px' }}>
+              <h3 style={{
+                fontSize: '1.75rem',
+                fontWeight: 800,
+                color: '#0F172A',
+                margin: '0 0 6px 0',
+                letterSpacing: '-0.025em'
+              }}>
+                Welcome Back
+              </h3>
+              <p style={{
+                fontSize: '0.875rem',
+                color: '#64748B',
+                margin: 0
+              }}>
+                Sign in to your university account
+              </p>
+            </div>
+
+            {/* Error Message */}
+            {errorMessage && (
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '10px 14px',
+                backgroundColor: '#FEF2F2',
+                border: '1px solid #FECACA',
+                borderRadius: '8px',
+                color: '#DC2626',
+                fontSize: '0.82rem',
+                marginBottom: '18px'
+              }}>
+                <AlertCircle size={16} style={{ flexShrink: 0 }} />
+                <span>{errorMessage}</span>
+              </div>
+            )}
+
+            {/* Form */}
+            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              {/* Email / Username Field */}
+              <div>
                 <label style={{
+                  display: 'block',
                   fontSize: '0.82rem',
-                  fontWeight: 700,
-                  color: '#334155'
+                  fontWeight: 600,
+                  color: '#334155',
+                  marginBottom: '6px'
                 }}>
-                  كلمة المرور
+                  Email or Username
                 </label>
+                <div style={{ position: 'relative' }}>
+                  <input
+                    type="text"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    placeholder="Enter your email or username"
+                    style={{
+                      width: '100%',
+                      padding: '12px 14px',
+                      borderRadius: '10px',
+                      border: '1px solid #CBD5E1',
+                      backgroundColor: '#F8FAFC',
+                      color: '#0F172A',
+                      fontSize: '0.9rem',
+                      outline: 'none',
+                      transition: 'border-color 0.2s, box-shadow 0.2s',
+                      boxSizing: 'border-box'
+                    }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = '#2563EB';
+                      e.target.style.boxShadow = '0 0 0 3px rgba(37, 99, 235, 0.15)';
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = '#CBD5E1';
+                      e.target.style.boxShadow = 'none';
+                    }}
+                    required
+                  />
+                </div>
+              </div>
+
+              {/* Password Field */}
+              <div>
+                <label style={{
+                  display: 'block',
+                  fontSize: '0.82rem',
+                  fontWeight: 600,
+                  color: '#334155',
+                  marginBottom: '6px'
+                }}>
+                  Password
+                </label>
+                <div style={{ position: 'relative' }}>
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Enter your password"
+                    style={{
+                      width: '100%',
+                      padding: '12px 42px 12px 14px',
+                      borderRadius: '10px',
+                      border: '1px solid #CBD5E1',
+                      backgroundColor: '#F8FAFC',
+                      color: '#0F172A',
+                      fontSize: '0.9rem',
+                      outline: 'none',
+                      transition: 'border-color 0.2s, box-shadow 0.2s',
+                      boxSizing: 'border-box'
+                    }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = '#2563EB';
+                      e.target.style.boxShadow = '0 0 0 3px rgba(37, 99, 235, 0.15)';
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = '#CBD5E1';
+                      e.target.style.boxShadow = 'none';
+                    }}
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    style={{
+                      position: 'absolute',
+                      right: '12px',
+                      top: '50%',
+                      transform: 'translateY(-50%)',
+                      background: 'none',
+                      border: 'none',
+                      padding: 0,
+                      color: '#94A3B8',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}
+                  >
+                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </button>
+                </div>
+              </div>
+
+              {/* Options Row (Remember me & Forgot password) */}
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                fontSize: '0.82rem'
+              }}>
+                <label style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#475569', cursor: 'pointer' }}>
+                  <input
+                    type="checkbox"
+                    checked={rememberMe}
+                    onChange={(e) => setRememberMe(e.target.checked)}
+                    style={{
+                      width: '15px',
+                      height: '15px',
+                      borderRadius: '4px',
+                      accentColor: '#2563EB',
+                      cursor: 'pointer'
+                    }}
+                  />
+                  <span>Remember me</span>
+                </label>
+
                 <button
                   type="button"
                   onClick={() => setShowForgotModal(true)}
                   style={{
                     background: 'none',
                     border: 'none',
+                    padding: 0,
                     color: '#2563EB',
-                    fontSize: '0.78rem',
-                    fontWeight: 600,
+                    fontSize: '0.82rem',
+                    fontWeight: 500,
                     cursor: 'pointer',
-                    padding: 0
+                    textDecoration: 'none'
                   }}
+                  onMouseEnter={(e) => e.currentTarget.style.textDecoration = 'underline'}
+                  onMouseLeave={(e) => e.currentTarget.style.textDecoration = 'none'}
                 >
-                  نسيت كلمة المرور؟
+                  Forgot password?
                 </button>
+              </div>
+
+              {/* Primary Action Button */}
+              <button
+                type="submit"
+                disabled={isLoading}
+                style={{
+                  width: '100%',
+                  marginTop: '6px',
+                  padding: '13px 20px',
+                  backgroundColor: '#1D6AE5',
+                  color: '#FFFFFF',
+                  border: 'none',
+                  borderRadius: '10px',
+                  fontSize: '0.95rem',
+                  fontWeight: 600,
+                  cursor: isLoading ? 'not-allowed' : 'pointer',
+                  boxShadow: '0 4px 12px rgba(29, 106, 229, 0.35)',
+                  transition: 'background-color 0.2s, transform 0.1s, box-shadow 0.2s',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '8px'
+                }}
+                onMouseEnter={(e) => {
+                  if (!isLoading) {
+                    e.currentTarget.style.backgroundColor = '#1856BA';
+                    e.currentTarget.style.transform = 'translateY(-1px)';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = '#1D6AE5';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                }}
+              >
+                {isLoading ? (
+                  <>
+                    <span style={{
+                      width: '16px',
+                      height: '16px',
+                      border: '2px solid #FFFFFF',
+                      borderTopColor: 'transparent',
+                      borderRadius: '50%',
+                      animation: 'spin 0.8s linear infinite',
+                      display: 'inline-block'
+                    }} />
+                    <span>Signing in...</span>
+                  </>
+                ) : (
+                  'Sign In'
+                )}
+              </button>
+            </form>
+
+            {/* Quick Demo Selector Chips */}
+            <div style={{
+              marginTop: '22px',
+              paddingTop: '18px',
+              borderTop: '1px solid #F1F5F9'
+            }}>
+              <div style={{
+                fontSize: '0.72rem',
+                color: '#64748B',
+                fontWeight: 600,
+                textTransform: 'uppercase',
+                letterSpacing: '0.04em',
+                marginBottom: '8px',
+                textAlign: 'center'
+              }}>
+                Quick Demo Accounts (1-Click Fill)
               </div>
 
               <div style={{
-                position: 'relative',
                 display: 'flex',
-                alignItems: 'center'
+                flexWrap: 'wrap',
+                gap: '6px',
+                justifyContent: 'center'
               }}>
-                <div style={{
-                  position: 'absolute',
-                  right: '14px',
-                  color: '#94A3B8',
-                  pointerEvents: 'none'
-                }}>
-                  <Lock size={18} />
-                </div>
-                <input
-                  type={showPassword ? 'text' : 'password'}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••••••"
-                  required
-                  style={{
-                    width: '100%',
-                    padding: '12px 42px 12px 42px',
-                    borderRadius: '10px',
-                    border: '1.5px solid #CBD5E1',
-                    fontSize: '0.92rem',
-                    color: '#0F172A',
-                    backgroundColor: '#FFFFFF',
-                    outline: 'none',
-                    transition: 'border-color 0.2s, box-shadow 0.2s',
-                    boxShadow: '0 1px 2px rgba(0,0,0,0.05)'
-                  }}
-                  onFocus={(e) => {
-                    e.currentTarget.style.borderColor = '#2563EB';
-                    e.currentTarget.style.boxShadow = '0 0 0 3px rgba(37, 99, 235, 0.15)';
-                  }}
-                  onBlur={(e) => {
-                    e.currentTarget.style.borderColor = '#CBD5E1';
-                    e.currentTarget.style.boxShadow = '0 1px 2px rgba(0,0,0,0.05)';
-                  }}
-                />
                 <button
                   type="button"
-                  onClick={() => setShowPassword(!showPassword)}
+                  onClick={() => handleDemoSelect('director')}
                   style={{
-                    position: 'absolute',
-                    left: '14px',
-                    background: 'none',
-                    border: 'none',
-                    color: '#94A3B8',
-                    cursor: 'pointer',
-                    padding: 0,
-                    display: 'flex',
-                    alignItems: 'center'
+                    fontSize: '0.72rem',
+                    fontWeight: 600,
+                    padding: '4px 9px',
+                    borderRadius: '6px',
+                    border: selectedDemoRole === 'director' ? '1px solid #2563EB' : '1px solid #E2E8F0',
+                    backgroundColor: selectedDemoRole === 'director' ? '#EFF6FF' : '#F8FAFC',
+                    color: selectedDemoRole === 'director' ? '#1D4ED8' : '#475569',
+                    cursor: 'pointer'
                   }}
-                  aria-label="Toggle Password Visibility"
                 >
-                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  🏛️ Director
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => handleDemoSelect('printing')}
+                  style={{
+                    fontSize: '0.72rem',
+                    fontWeight: 600,
+                    padding: '4px 9px',
+                    borderRadius: '6px',
+                    border: selectedDemoRole === 'printing' ? '1px solid #2563EB' : '1px solid #E2E8F0',
+                    backgroundColor: selectedDemoRole === 'printing' ? '#EFF6FF' : '#F8FAFC',
+                    color: selectedDemoRole === 'printing' ? '#1D4ED8' : '#475569',
+                    cursor: 'pointer'
+                  }}
+                >
+                  🖨️ Printing Office
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => handleDemoSelect('library')}
+                  style={{
+                    fontSize: '0.72rem',
+                    fontWeight: 600,
+                    padding: '4px 9px',
+                    borderRadius: '6px',
+                    border: selectedDemoRole === 'library' ? '1px solid #2563EB' : '1px solid #E2E8F0',
+                    backgroundColor: selectedDemoRole === 'library' ? '#EFF6FF' : '#F8FAFC',
+                    color: selectedDemoRole === 'library' ? '#1D4ED8' : '#475569',
+                    cursor: 'pointer'
+                  }}
+                >
+                  📚 Library
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => handleDemoSelect('finance')}
+                  style={{
+                    fontSize: '0.72rem',
+                    fontWeight: 600,
+                    padding: '4px 9px',
+                    borderRadius: '6px',
+                    border: selectedDemoRole === 'finance' ? '1px solid #2563EB' : '1px solid #E2E8F0',
+                    backgroundColor: selectedDemoRole === 'finance' ? '#EFF6FF' : '#F8FAFC',
+                    color: selectedDemoRole === 'finance' ? '#1D4ED8' : '#475569',
+                    cursor: 'pointer'
+                  }}
+                >
+                  💰 Finance
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => handleDemoSelect('it')}
+                  style={{
+                    fontSize: '0.72rem',
+                    fontWeight: 600,
+                    padding: '4px 9px',
+                    borderRadius: '6px',
+                    border: selectedDemoRole === 'it' ? '1px solid #2563EB' : '1px solid #E2E8F0',
+                    backgroundColor: selectedDemoRole === 'it' ? '#EFF6FF' : '#F8FAFC',
+                    color: selectedDemoRole === 'it' ? '#1D4ED8' : '#475569',
+                    cursor: 'pointer'
+                  }}
+                >
+                  💻 IT Admin
                 </button>
               </div>
             </div>
 
-            {/* Remember me option */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <input
-                type="checkbox"
-                id="rememberMe"
-                checked={rememberMe}
-                onChange={(e) => setRememberMe(e.target.checked)}
-                style={{
-                  width: '16px',
-                  height: '16px',
-                  borderRadius: '4px',
-                  cursor: 'pointer',
-                  accentColor: '#2563EB'
-                }}
-              />
-              <label 
-                htmlFor="rememberMe" 
-                style={{ fontSize: '0.82rem', color: '#475569', fontWeight: 500, cursor: 'pointer', userSelect: 'none' }}
-              >
-                تذكر بيانات هذا الجهاز للأعمال اليومية
-              </label>
-            </div>
-
-            {/* Submit Button */}
-            <button
-              type="submit"
-              disabled={isLoading}
-              style={{
-                width: '100%',
-                height: '48px',
-                borderRadius: '10px',
-                border: 'none',
-                backgroundColor: '#2563EB',
-                color: '#FFFFFF',
-                fontSize: '0.98rem',
-                fontWeight: 700,
-                cursor: isLoading ? 'not-allowed' : 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '10px',
-                boxShadow: '0 4px 14px rgba(37, 99, 235, 0.35)',
-                transition: 'all 0.2s ease',
-                opacity: isLoading ? 0.8 : 1,
-                marginTop: '6px'
-              }}
-              onMouseEnter={(e) => {
-                if (!isLoading) e.currentTarget.style.backgroundColor = '#1D4ED8';
-              }}
-              onMouseLeave={(e) => {
-                if (!isLoading) e.currentTarget.style.backgroundColor = '#2563EB';
-              }}
-            >
-              {isLoading ? (
-                <>
-                  <div style={{
-                    width: '18px',
-                    height: '18px',
-                    border: '2px solid rgba(255,255,255,0.4)',
-                    borderTopColor: '#FFFFFF',
-                    borderRadius: '50%',
-                    animation: 'spin 0.8s linear infinite'
-                  }} />
-                  <span>جارٍ التحقق والربط...</span>
-                </>
-              ) : (
-                <>
-                  <span>دخول المنظومة التشغيلية</span>
-                  <ArrowRight size={18} />
-                </>
-              )}
-            </button>
-          </form>
-
-          {/* Quick Access Helper */}
-          <div style={{
-            marginTop: '28px',
-            padding: '14px',
-            backgroundColor: '#F8FAFC',
-            borderRadius: '10px',
-            border: '1px solid #E2E8F0',
-            fontSize: '0.78rem',
-            color: '#64748B',
-            display: 'flex',
-            alignItems: 'flex-start',
-            gap: '10px'
-          }}>
-            <ShieldCheck size={20} color="#2563EB" style={{ flexShrink: 0, marginTop: '2px' }} />
-            <div>
-              <span style={{ fontWeight: 700, color: '#334155' }}>حماية المؤسسة الأكاديمية: </span>
-              يتم تشفير كافة جلسات الاتصال وربط أجهزة المكاتب ببروتوكول موثق وفقاً لصلاحيات الإدارة العامة للجامعة.
+            {/* Sub Footer inside Card */}
+            <div style={{
+              marginTop: '18px',
+              textAlign: 'center',
+              fontSize: '0.76rem',
+              color: '#94A3B8'
+            }}>
+              Secure &nbsp;•&nbsp; Reliable &nbsp;•&nbsp; University-Only
             </div>
           </div>
         </div>
       </div>
 
-      {/* ── FORGOT PASSWORD MODAL ── */}
+      {/* Forgot Password Modal */}
       {showForgotModal && (
         <div style={{
           position: 'fixed',
           inset: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.65)',
+          backdropFilter: 'blur(4px)',
           zIndex: 100,
-          backgroundColor: 'rgba(10, 25, 47, 0.75)',
-          backdropFilter: 'blur(6px)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -845,103 +835,58 @@ export const LoginPage: React.FC<LoginPageProps> = ({
           <div style={{
             backgroundColor: '#FFFFFF',
             borderRadius: '16px',
-            maxWidth: '460px',
+            padding: '28px',
+            maxWidth: '420px',
             width: '100%',
-            padding: '30px',
-            boxShadow: '0 20px 40px rgba(0,0,0,0.3)',
-            position: 'relative',
-            color: '#0F172A'
+            color: '#0F172A',
+            boxShadow: '0 20px 40px rgba(0,0,0,0.3)'
           }}>
-            <button
-              onClick={() => setShowForgotModal(false)}
-              style={{
-                position: 'absolute',
-                top: '20px',
-                left: '20px',
-                background: 'none',
-                border: 'none',
-                color: '#64748B',
-                cursor: 'pointer'
-              }}
-            >
-              <X size={20} />
-            </button>
-
-            <div style={{
-              width: '48px',
-              height: '48px',
-              borderRadius: '12px',
-              backgroundColor: '#EFF6FF',
-              color: '#2563EB',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginBottom: '16px'
-            }}>
-              <HelpCircle size={26} />
-            </div>
-
-            <h3 style={{ fontSize: '1.25rem', fontWeight: 800, margin: '0 0 8px 0', color: '#0A192F' }}>
-              استعادة كلمة المرور الرسمية
-            </h3>
-
-            <p style={{ fontSize: '0.88rem', color: '#64748B', lineHeight: 1.6, marginBottom: '20px' }}>
-              وفقاً للائحة الأمن السيبراني للجامعة، تتم إعادة تعيين كلمات المرور لحسابات مدراء المكاتب عبر إحدى الطرق التالية:
+            <h4 style={{ margin: '0 0 8px 0', fontSize: '1.2rem', fontWeight: 700 }}>
+              Password Reset Assistance
+            </h4>
+            <p style={{ fontSize: '0.88rem', color: '#64748B', lineHeight: 1.5, margin: '0 0 20px 0' }}>
+              University account credentials are centrally managed. To reset your password, please contact the University IT Operations Helpdesk or use the preset demo accounts.
             </p>
-
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '24px' }}>
-              <div style={{
-                padding: '12px',
-                backgroundColor: '#F8FAFC',
-                borderRadius: '8px',
-                border: '1px solid #E2E8F0',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '10px'
-              }}>
-                <Building2 size={20} color="#0A192F" />
-                <div style={{ fontSize: '0.84rem' }}>
-                  <div style={{ fontWeight: 700, color: '#1E293B' }}>مكتب مدير الجامعة العام</div>
-                  <div style={{ color: '#64748B', fontSize: '0.76rem' }}>مبنى الإدارة المركزية - الدور الرابع</div>
-                </div>
-              </div>
-
-              <div style={{
-                padding: '12px',
-                backgroundColor: '#F8FAFC',
-                borderRadius: '8px',
-                border: '1px solid #E2E8F0',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '10px'
-              }}>
-                <Cpu size={20} color="#2563EB" />
-                <div style={{ fontSize: '0.84rem' }}>
-                  <div style={{ fontWeight: 700, color: '#1E293B' }}>إدارة الدعم الفني وتقنية المعلومات (IT)</div>
-                  <div style={{ color: '#64748B', fontSize: '0.76rem' }}>التحويلة الداخلية: 104 • support@university.edu</div>
-                </div>
-              </div>
+            <div style={{
+              backgroundColor: '#F8FAFC',
+              border: '1px solid #E2E8F0',
+              borderRadius: '8px',
+              padding: '12px',
+              fontSize: '0.82rem',
+              color: '#334155',
+              marginBottom: '20px'
+            }}>
+              <strong>IT Helpdesk:</strong> it-support@university.edu<br />
+              <strong>Internal Extension:</strong> 4040
             </div>
-
             <button
+              type="button"
               onClick={() => setShowForgotModal(false)}
               style={{
                 width: '100%',
-                height: '44px',
-                backgroundColor: '#0A192F',
+                padding: '10px',
+                backgroundColor: '#2563EB',
                 color: '#FFFFFF',
-                borderRadius: '8px',
                 border: 'none',
-                fontWeight: 700,
+                borderRadius: '8px',
+                fontWeight: 600,
                 fontSize: '0.9rem',
                 cursor: 'pointer'
               }}
             >
-              حسناً، فهمت الإجراءات
+              Close
             </button>
           </div>
         </div>
       )}
+
+      {/* Keyframe animation for spinner */}
+      <style>{`
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+      `}</style>
     </div>
   );
 };

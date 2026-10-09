@@ -70,14 +70,14 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
               Executive Vision
             </span>
             <span style={{ fontSize: '0.8rem', color: '#93c5fd' }}>
-              Central University Control Center • مركز القيادة والتحكم الإداري
+              Central University Control Center
             </span>
           </div>
           <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#f8fafc', margin: '0 0 6px' }}>
             Operations & Office Communication Management
           </h2>
           <p style={{ fontSize: '0.86rem', color: '#cbd5e1', maxWidth: '780px', margin: 0, lineHeight: 1.5 }}>
-            منصة رقمية موحدة لمتابعة كافة مكاتب وإدارات الجامعة، إرسال المهام، تتبع مراحل التنفيذ لحظياً، وبث الشاشة المصرح به عند الحاجة للتحقق الإداري.
+            A unified digital platform to monitor all university offices and departments, dispatch tasks, track execution stages in real time, and enable authorized screen sharing for administrative verification.
           </p>
         </div>
 
@@ -137,7 +137,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
           </div>
           <div>
             <div style={{ fontSize: '0.78rem', color: '#94a3b8', fontWeight: 600 }}>
-              Total Offices (إجمالي المكاتب)
+              Total Offices
             </div>
             <div style={{ fontSize: '1.6rem', fontWeight: 800, color: '#f8fafc' }}>
               {stats.totalOffices}
@@ -161,7 +161,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
           </div>
           <div>
             <div style={{ fontSize: '0.78rem', color: '#94a3b8', fontWeight: 600 }}>
-              Online Offices (المكاتب المتصلة)
+              Online Offices
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <span style={{ fontSize: '1.6rem', fontWeight: 800, color: '#34d399' }}>
@@ -245,7 +245,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
                 University Office Operational Directory
               </h3>
               <p style={{ fontSize: '0.78rem', color: '#94a3b8', margin: 0 }}>
-                حالة الاتصال والمسؤولين والمهام النشطة لكل مكتب
+                Connection status, managers and active tasks for each office
               </p>
             </div>
             <button
@@ -371,7 +371,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
           {/* Quick Actions Panel */}
           <div className="glass-panel" style={{ padding: '20px' }}>
             <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#f8fafc', marginBottom: '14px' }}>
-              Quick Operations (إجراءات سريعة)
+              Quick Operations
             </h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
               <button
@@ -380,7 +380,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
                 style={{ width: '100%', justifyContent: 'flex-start', padding: '10px 14px' }}
               >
                 <PlusCircle size={16} />
-                <span>Create New Task (إنشاء تكليف)</span>
+                <span>Create New Task</span>
               </button>
 
               <button

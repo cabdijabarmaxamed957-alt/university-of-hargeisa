@@ -9,16 +9,9 @@ import {
   ShieldCheck, 
   BarChart3, 
   Cpu, 
-  Settings, 
   LogOut, 
   ChevronLeft, 
-  ChevronRight,
-  Sparkles,
-  ExternalLink,
-  Users,
-  Activity,
-  Layers,
-  HelpCircle
+  ChevronRight
 } from 'lucide-react';
 import { ASSETS } from '../assets/brandingAssets';
 
@@ -57,67 +50,58 @@ export const Sidebar: React.FC<SidebarProps> = ({
   const navItems = [
     {
       id: 'dashboard',
-      label: 'لوحة التحكم المركزية',
-      labelEn: 'Control Center',
+      label: 'Control Center',
       icon: LayoutDashboard,
       badge: null
     },
     {
       id: 'offices',
-      label: 'دليل ومكاتب الجامعة',
-      labelEn: 'Offices Directory',
+      label: 'Offices Directory',
       icon: Building2,
-      badge: '8 مكاتب'
+      badge: '8 Offices'
     },
     {
       id: 'tasks',
-      label: 'إدارة العمليات والمهام',
-      labelEn: 'Task Management',
+      label: 'Task Management',
       icon: CheckSquare,
-      badge: pendingTasksCount > 0 ? `${pendingTasksCount} معلقة` : null,
+      badge: pendingTasksCount > 0 ? `${pendingTasksCount} Pending` : null,
       badgeColor: '#EF4444'
     },
     {
       id: 'messages',
-      label: 'مركز المراسلات والدردشة',
-      labelEn: 'Messages & Chat',
+      label: 'Messages & Chat',
       icon: MessageSquare,
-      badge: unreadMessagesCount > 0 ? `${unreadMessagesCount} جديد` : null,
+      badge: unreadMessagesCount > 0 ? `${unreadMessagesCount} New` : null,
       badgeColor: '#3B82F6'
     },
     {
       id: 'announcements',
-      label: 'التعميمات الرسمية',
-      labelEn: 'Announcements',
+      label: 'Announcements',
       icon: Megaphone,
       badge: null
     },
     {
       id: 'devices',
-      label: 'إدارة أجهزة الحواسيب',
-      labelEn: 'Device Inventory',
+      label: 'Device Inventory',
       icon: Monitor,
-      badge: activeScreenSessionsCount > 0 ? `${activeScreenSessionsCount} بث مباشر` : null,
+      badge: activeScreenSessionsCount > 0 ? `${activeScreenSessionsCount} Live` : null,
       badgeColor: '#10B981'
     },
     {
       id: 'reports',
-      label: 'التقارير والإحصائيات',
-      labelEn: 'Reports & Analytics',
+      label: 'Reports & Analytics',
       icon: BarChart3,
       badge: null
     },
     {
       id: 'audit',
-      label: 'سجل الرقابة والتدقيق',
-      labelEn: 'Audit & Governance',
+      label: 'Audit & Governance',
       icon: ShieldCheck,
       badge: null
     },
     {
       id: 'it_health',
-      label: 'صحة النظام والبنية التحتية',
-      labelEn: 'IT System Health',
+      label: 'IT System Health',
       icon: Cpu,
       badge: 'Online',
       badgeColor: '#10B981'
@@ -150,24 +134,23 @@ export const Sidebar: React.FC<SidebarProps> = ({
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', overflow: 'hidden' }}>
             <div style={{
-              width: '44px',
-              height: '44px',
+              width: '42px',
+              height: '42px',
               borderRadius: '12px',
               background: 'linear-gradient(135deg, #1E3A8A 0%, #0F172A 100%)',
-              border: '2px solid rgba(212, 175, 55, 0.6)',
-              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.4), 0 0 10px rgba(212, 175, 55, 0.25)',
+              border: '2px solid #3B82F6',
+              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.4), 0 0 10px rgba(59, 130, 246, 0.3)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               overflow: 'hidden',
               flexShrink: 0
             }}>
-              <img 
-                src={logoSrc} 
-                alt="University Logo" 
-                onError={handleLogoError}
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
-              />
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#60A5FA" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z" fill="rgba(30, 64, 175, 0.4)" />
+                <path d="M12 6.5v11" stroke="#FFFFFF" strokeWidth="1.5" />
+                <path d="M8 9.5c0-1.5 1.5-2.5 4-2.5s4 1 4 2.5v7.5c-2-1-3.5-1-4-1s-2 0-4 1V9.5z" stroke="#FFFFFF" strokeWidth="1.5" fill="rgba(255, 255, 255, 0.2)" />
+              </svg>
             </div>
 
             {!collapsed && (
@@ -181,7 +164,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   overflow: 'hidden',
                   textOverflow: 'ellipsis'
                 }}>
-                  جامعة المدينة الدولية
+                  University Operations
                 </div>
                 <div style={{
                   fontSize: '0.72rem',
@@ -191,7 +174,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   overflow: 'hidden',
                   textOverflow: 'ellipsis'
                 }}>
-                  بوابة العمليات المركزية
+                  Central Control Hub
                 </div>
               </div>
             )}
@@ -211,7 +194,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 alignItems: 'center',
                 justifyContent: 'center'
               }}
-              title="طي القائمة"
+              title="Collapse Sidebar"
             >
               <ChevronLeft size={16} />
             </button>
@@ -230,7 +213,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 padding: '6px',
                 cursor: 'pointer'
               }}
-              title="توسيع القائمة"
+              title="Expand Sidebar"
             >
               <ChevronRight size={16} />
             </button>
@@ -248,7 +231,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               padding: '6px 12px',
               textTransform: 'uppercase'
             }}>
-              الوحدات التشغيلية
+              Operational Modules
             </div>
           )}
 
@@ -334,7 +317,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </nav>
       </div>
 
-      {/* ── BOTTOM SECTION: User Profile & Security Meta ── */}
+      {/* ── BOTTOM SECTION: User Profile & Logout ── */}
       <div style={{
         padding: collapsed ? '16px 10px' : '16px 18px',
         borderTop: '1px solid rgba(255, 255, 255, 0.08)',
@@ -372,10 +355,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
               </div>
               <div style={{ minWidth: 0 }}>
                 <div style={{ fontSize: '0.82rem', fontWeight: 700, color: '#FFFFFF', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                  {userRole === 'director' ? 'Prof. Al-Husseini' : userRole === 'it_admin' ? 'IT Administrator' : officeName || 'Office Manager'}
+                  {userRole === 'director' ? 'Dr. Ismael Hersi' : userRole === 'it_admin' ? 'IT Administrator' : officeName || 'Office Manager'}
                 </div>
                 <div style={{ fontSize: '0.68rem', color: '#94A3B8' }}>
-                  {userRole === 'director' ? 'مدير الجامعة العام' : userRole === 'it_admin' ? 'مسؤول النظم والشبكات' : 'مدير المكتب المعتمد'}
+                  {userRole === 'director' ? 'University Director' : userRole === 'it_admin' ? 'Network & System Admin' : 'Authorized Office Manager'}
                 </div>
               </div>
             </div>
@@ -384,7 +367,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
         <button
           onClick={onLogout}
-          title={collapsed ? 'تسجيل الخروج' : undefined}
+          title={collapsed ? 'Sign Out' : undefined}
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -409,7 +392,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           }}
         >
           <LogOut size={16} />
-          {!collapsed && <span>تسجيل الخروج من المنظومة</span>}
+          {!collapsed && <span>Sign Out of Hub</span>}
         </button>
       </div>
     </aside>

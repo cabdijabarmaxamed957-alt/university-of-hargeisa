@@ -52,7 +52,7 @@ export function App() {
   const [authToken, setAuthToken] = useState<string | null>(() => {
     return localStorage.getItem('univ_auth_token') || sessionStorage.getItem('univ_auth_token') || null;
   });
-  const [language, setLanguage] = useState<'ar' | 'en' | 'so'>('ar');
+  const [language, setLanguage] = useState<'ar' | 'en' | 'so'>('en');
 
   // Navigation & View Mode
   const [currentView, setCurrentView] = useState<'director' | 'agent' | 'split'>('director');
@@ -453,8 +453,6 @@ export function App() {
     return (
       <LoginPage 
         onLogin={handleLogin} 
-        language={language} 
-        onLanguageChange={setLanguage} 
       />
     );
   }

@@ -6,6 +6,9 @@ export interface AuthUser {
   role: UserRole;
   officeId: string | null;
   fullName: string;
+  name?: string;
+  avatar?: string;
+  title?: string;
 }
 
 export interface LoginResponse {

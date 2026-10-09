@@ -68,7 +68,7 @@ export const TaskManager: React.FC<TaskManagerProps> = ({
             Task Operations & Lifecycle Management
           </h2>
           <p style={{ fontSize: '0.8rem', color: '#94a3b8', margin: 0 }}>
-            إدارة وتتبع دورة حياة المهام الإدارية والتشغيلية عبر كافة مكاتب الجامعة لحظياً
+            Real-time management and tracking of administrative task lifecycles across all university offices
           </p>
         </div>
 
@@ -79,7 +79,7 @@ export const TaskManager: React.FC<TaskManagerProps> = ({
           style={{ padding: '9px 18px' }}
         >
           <PlusCircle size={16} />
-          <span>Dispatch New Task (إرسال تكليف)</span>
+          <span>Dispatch New Task</span>
         </button>
       </div>
 
@@ -96,7 +96,7 @@ export const TaskManager: React.FC<TaskManagerProps> = ({
           onChange={e => setOfficeFilter(e.target.value)}
           style={{ fontSize: '0.8rem', padding: '6px 12px' }}
         >
-          <option value="all">All Offices (كافة المكاتب)</option>
+          <option value="all">All Offices</option>
           {offices.map(o => (
             <option key={o.id} value={o.id}>{o.name}</option>
           ))}
@@ -108,7 +108,7 @@ export const TaskManager: React.FC<TaskManagerProps> = ({
           onChange={e => setStatusFilter(e.target.value)}
           style={{ fontSize: '0.8rem', padding: '6px 12px' }}
         >
-          <option value="all">All Statuses (كافة الحالات)</option>
+          <option value="all">All Statuses</option>
           <option value="new">New</option>
           <option value="received">Received</option>
           <option value="accepted">Accepted</option>
@@ -123,10 +123,10 @@ export const TaskManager: React.FC<TaskManagerProps> = ({
           onChange={e => setPriorityFilter(e.target.value)}
           style={{ fontSize: '0.8rem', padding: '6px 12px' }}
         >
-          <option value="all">All Priorities (كل الأولويات)</option>
-          <option value="urgent">Urgent (عاجل جداً)</option>
-          <option value="important">Important (هام)</option>
-          <option value="normal">Normal (عادي)</option>
+          <option value="all">All Priorities</option>
+          <option value="urgent">Urgent</option>
+          <option value="important">Important</option>
+          <option value="normal">Normal</option>
         </select>
 
         <span style={{ fontSize: '0.78rem', color: '#64748b', marginLeft: 'auto' }}>
@@ -263,7 +263,7 @@ export const TaskManager: React.FC<TaskManagerProps> = ({
               {/* 6-Stage Task Lifecycle Visual Stepper (Matches Section 6 & Infographic 3) */}
               <div>
                 <h4 style={{ fontSize: '0.9rem', fontWeight: 700, color: '#f8fafc', marginBottom: '16px' }}>
-                  Operational State Machine (دورة حياة المهمة)
+                  Operational State Machine
                 </h4>
 
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: '8px' }}>
@@ -305,7 +305,7 @@ export const TaskManager: React.FC<TaskManagerProps> = ({
                           {step.label}
                         </span>
                         <span style={{ fontSize: '0.65rem', color: '#94a3b8' }}>
-                          {step.labelAr}
+                          {step.label}
                         </span>
                       </div>
                     );
@@ -373,7 +373,7 @@ export const TaskManager: React.FC<TaskManagerProps> = ({
                     style={{ padding: '8px 18px' }}
                   >
                     <CheckCircle2 size={16} />
-                    <span>Verify Task (اعتماد الإنجاز)</span>
+                    <span>Verify & Close Task</span>
                   </button>
                 </div>
               )}

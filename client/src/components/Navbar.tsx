@@ -6,8 +6,6 @@ import {
   Wifi, 
   WifiOff, 
   Clock, 
-  ShieldCheck, 
-  Bell, 
   Eye,
   LogOut,
   User
@@ -77,20 +75,19 @@ export const Navbar: React.FC<NavbarProps> = ({
           height: '42px',
           borderRadius: '12px',
           background: 'linear-gradient(135deg, #0A192F, #1E3A8A)',
-          border: '1.5px solid rgba(212, 175, 55, 0.6)',
+          border: '1.5px solid #3B82F6',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          boxShadow: '0 4px 14px rgba(0, 0, 0, 0.4), 0 0 10px rgba(212, 175, 55, 0.2)',
+          boxShadow: '0 4px 14px rgba(0, 0, 0, 0.4), 0 0 10px rgba(59, 130, 246, 0.3)',
           overflow: 'hidden',
           flexShrink: 0
         }}>
-          <img 
-            src={logoSrc} 
-            alt="University Logo" 
-            onError={handleLogoError}
-            style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
-          />
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#60A5FA" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z" fill="rgba(30, 64, 175, 0.4)" />
+            <path d="M12 6.5v11" stroke="#FFFFFF" strokeWidth="1.5" />
+            <path d="M8 9.5c0-1.5 1.5-2.5 4-2.5s4 1 4 2.5v7.5c-2-1-3.5-1-4-1s-2 0-4 1V9.5z" stroke="#FFFFFF" strokeWidth="1.5" fill="rgba(255, 255, 255, 0.2)" />
+          </svg>
         </div>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -98,19 +95,19 @@ export const Navbar: React.FC<NavbarProps> = ({
               UNIVERSITY OPERATIONS HUB
             </h1>
             <span style={{ 
-              background: 'rgba(212, 175, 55, 0.18)', 
-              color: '#F3DA8E', 
+              background: 'rgba(59, 130, 246, 0.18)', 
+              color: '#93C5FD', 
               fontSize: '0.65rem', 
               padding: '2px 7px', 
               borderRadius: '6px', 
               fontWeight: 700,
-              border: '1px solid rgba(212, 175, 55, 0.35)'
+              border: '1px solid rgba(59, 130, 246, 0.35)'
             }}>
               OFFICIAL CENTRAL
             </span>
           </div>
           <p style={{ fontSize: '0.74rem', color: '#94a3b8', margin: '2px 0 0 0' }}>
-            منظومة الاتصال والعمليات الإدارية المركزية لمكاتب الجامعة
+            Office Communication & Operations Management System
           </p>
         </div>
       </div>
@@ -143,7 +140,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           }}
         >
           <Building2 size={16} />
-          <span>Control Center (إدارة الجامعة)</span>
+          <span>Control Center</span>
         </button>
 
         <button
@@ -165,7 +162,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           }}
         >
           <Monitor size={16} />
-          <span>Office Agent (جهاز المكتب)</span>
+          <span>Office Agent</span>
         </button>
 
         <button
@@ -187,7 +184,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           }}
         >
           <Columns size={16} />
-          <span>Split Live View (عرض متزامن)</span>
+          <span>Split Live View</span>
         </button>
       </div>
 
@@ -205,10 +202,9 @@ export const Navbar: React.FC<NavbarProps> = ({
             padding: '5px 10px',
             borderRadius: '20px',
             fontSize: '0.75rem',
-            fontWeight: 700,
-            animation: 'pulse-border 2s infinite'
+            fontWeight: 700
           }}>
-            <Eye size={14} className="animate-spin" />
+            <Eye size={14} />
             <span>{activeScreenSessionsCount} Screen Live</span>
           </div>
         )}
@@ -237,17 +233,17 @@ export const Navbar: React.FC<NavbarProps> = ({
           gap: '6px',
           fontSize: '0.78rem',
           fontWeight: 600,
-          color: isConnected ? '#34d399' : '#f87171'
+          color: isConnected ? '#34d399' : '#94A3B8'
         }}>
           {isConnected ? (
             <>
-              <div className="status-dot-pulse" />
-              <span>Real-time Active</span>
+              <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#10B981' }} />
+              <span>Connected</span>
             </>
           ) : (
             <>
-              <WifiOff size={14} color="#ef4444" />
-              <span>Connecting...</span>
+              <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#3B82F6' }} />
+              <span>Standby Demo Mode</span>
             </>
           )}
         </div>
@@ -282,7 +278,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
             <div>
               <div style={{ fontSize: '0.82rem', fontWeight: 700, color: '#f8fafc' }}>
-                {userRole === 'director' ? 'Prof. Al-Husseini' : userRole === 'it_admin' ? 'IT Admin Console' : officeName || 'Office Manager'}
+                {userRole === 'director' ? 'Dr. Ismael Hersi' : userRole === 'it_admin' ? 'IT Operations Admin' : officeName || 'Office Manager'}
               </div>
               <div style={{ fontSize: '0.68rem', color: '#94a3b8' }}>
                 {userRole === 'director' ? 'University Director' : userRole === 'it_admin' ? 'System Administrator' : 'Authorized Manager'}
@@ -293,7 +289,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           {onLogout && (
             <button
               onClick={onLogout}
-              title="Sign Out (تسجيل الخروج)"
+              title="Sign Out"
               style={{
                 display: 'flex',
                 alignItems: 'center',
@@ -316,7 +312,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               }}
             >
               <LogOut size={14} />
-              <span>خروج</span>
+              <span>Sign Out</span>
             </button>
           )}
         </div>

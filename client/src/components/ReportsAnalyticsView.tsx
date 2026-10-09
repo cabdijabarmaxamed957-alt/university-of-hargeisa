@@ -70,12 +70,12 @@ export const ReportsAnalyticsView: React.FC<ReportsAnalyticsViewProps> = ({
   });
 
   const exportReport = () => {
-    const reportData = `تقرير أداء العمليات الجامعية - ${new Date().toLocaleDateString('ar-SA')}\n` +
-      `إجمالي المكاتب: ${stats.totalOffices}\n` +
-      `المكاتب المتصلة: ${stats.onlineOffices}\n` +
-      `المهام المنجزة: ${stats.completedTasks}\n` +
-      `المهام المعلقة: ${stats.pendingTasks}\n\n` +
-      officePerformance.map(o => `${o.nameAr} | المهام: ${o.taskCount} | الإنجاز: ${o.completionRate}%`).join('\n');
+    const reportData = `University Operations Performance Report - ${new Date().toLocaleDateString('en-US')}\n` +
+      `Total Offices: ${stats.totalOffices}\n` +
+      `Online Offices: ${stats.onlineOffices}\n` +
+      `Completed Tasks: ${stats.completedTasks}\n` +
+      `Pending Tasks: ${stats.pendingTasks}\n\n` +
+      officePerformance.map(o => `${o.name} | Tasks: ${o.taskCount} | Completion: ${o.completionRate}%`).join('\n');
 
     const blob = new Blob([reportData], { type: 'text/plain;charset=utf-8' });
     const url = URL.createObjectURL(blob);
@@ -115,11 +115,11 @@ export const ReportsAnalyticsView: React.FC<ReportsAnalyticsViewProps> = ({
               <BarChart3 size={20} />
             </div>
             <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>
-              التقارير التحليلية وأداء المكاتب
+              Analytics Reports & Office Performance
             </h2>
           </div>
           <p style={{ fontSize: '0.84rem', color: '#64748B', margin: '4px 0 0 0' }}>
-            مؤشرات قياس زمن الاستجابة، ونسب إنجاز التكليفات، ومعدلات جاهزية الأجهزة المركزية
+            Response time indicators, task completion rates, and device uptime metrics
           </p>
         </div>
 
@@ -147,7 +147,7 @@ export const ReportsAnalyticsView: React.FC<ReportsAnalyticsViewProps> = ({
                   cursor: 'pointer'
                 }}
               >
-                {r === 'today' ? 'اليوم' : r === 'week' ? 'هذا الأسبوع' : r === 'month' ? 'هذا الشهر' : 'الفصل الدراسي'}
+                {r === 'today' ? 'Today' : r === 'week' ? 'This Week' : r === 'month' ? 'This Month' : 'Semester'}
               </button>
             ))}
           </div>
@@ -170,7 +170,7 @@ export const ReportsAnalyticsView: React.FC<ReportsAnalyticsViewProps> = ({
             }}
           >
             <Download size={16} />
-            <span>تصدير التقرير</span>
+            <span>Export Report</span>
           </button>
         </div>
       </div>
@@ -185,7 +185,7 @@ export const ReportsAnalyticsView: React.FC<ReportsAnalyticsViewProps> = ({
           boxShadow: '0 2px 6px rgba(0, 0, 0, 0.04)'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
-            <span style={{ fontSize: '0.82rem', color: '#64748B', fontWeight: 600 }}>معدل إنجاز المهام الكلي</span>
+            <span style={{ fontSize: '0.82rem', color: '#64748B', fontWeight: 600 }}>Overall Task Completion Rate</span>
             <div style={{ width: '32px', height: '32px', borderRadius: '8px', backgroundColor: '#ECFDF5', color: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <TrendingUp size={18} />
             </div>
@@ -195,7 +195,7 @@ export const ReportsAnalyticsView: React.FC<ReportsAnalyticsViewProps> = ({
           </div>
           <div style={{ fontSize: '0.75rem', color: '#059669', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '4px' }}>
             <ArrowUpRight size={14} />
-            <span>+4.2% مقارنة بالشهر السابق</span>
+            <span>+4.2% vs last month</span>
           </div>
         </div>
 
@@ -207,16 +207,16 @@ export const ReportsAnalyticsView: React.FC<ReportsAnalyticsViewProps> = ({
           boxShadow: '0 2px 6px rgba(0, 0, 0, 0.04)'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
-            <span style={{ fontSize: '0.82rem', color: '#64748B', fontWeight: 600 }}>متوسط زمن الاستجابة</span>
+            <span style={{ fontSize: '0.82rem', color: '#64748B', fontWeight: 600 }}>Avg. Response Time</span>
             <div style={{ width: '32px', height: '32px', borderRadius: '8px', backgroundColor: '#EFF6FF', color: '#2563EB', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <Clock size={18} />
             </div>
           </div>
           <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A', marginBottom: '4px' }}>
-            11.5 دقيقة
+            11.5 min
           </div>
           <div style={{ fontSize: '0.75rem', color: '#2563EB', fontWeight: 600 }}>
-            بين إرسال التكليف وقبوله
+            From task dispatch to acceptance
           </div>
         </div>
 
@@ -228,7 +228,7 @@ export const ReportsAnalyticsView: React.FC<ReportsAnalyticsViewProps> = ({
           boxShadow: '0 2px 6px rgba(0, 0, 0, 0.04)'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
-            <span style={{ fontSize: '0.82rem', color: '#64748B', fontWeight: 600 }}>نسبة جاهزية الأجهزة (Uptime)</span>
+            <span style={{ fontSize: '0.82rem', color: '#64748B', fontWeight: 600 }}>Device Uptime</span>
             <div style={{ width: '32px', height: '32px', borderRadius: '8px', backgroundColor: '#F5F3FF', color: '#7C3AED', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <ShieldCheck size={18} />
             </div>
@@ -237,7 +237,7 @@ export const ReportsAnalyticsView: React.FC<ReportsAnalyticsViewProps> = ({
             99.2%
           </div>
           <div style={{ fontSize: '0.75rem', color: '#7C3AED', fontWeight: 600 }}>
-            اتصال مستقر عبر الشبكة
+            Stable network connection
           </div>
         </div>
 
@@ -249,7 +249,7 @@ export const ReportsAnalyticsView: React.FC<ReportsAnalyticsViewProps> = ({
           boxShadow: '0 2px 6px rgba(0, 0, 0, 0.04)'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
-            <span style={{ fontSize: '0.82rem', color: '#64748B', fontWeight: 600 }}>نسبة وصول التعميمات</span>
+            <span style={{ fontSize: '0.82rem', color: '#64748B', fontWeight: 600 }}>Circular Delivery Rate</span>
             <div style={{ width: '32px', height: '32px', borderRadius: '8px', backgroundColor: '#FEF3C7', color: '#D97706', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <CheckCircle2 size={18} />
             </div>
@@ -258,7 +258,7 @@ export const ReportsAnalyticsView: React.FC<ReportsAnalyticsViewProps> = ({
             100%
           </div>
           <div style={{ fontSize: '0.75rem', color: '#D97706', fontWeight: 600 }}>
-            تأكيد استلام رقمي موثق
+            Digitally confirmed receipt
           </div>
         </div>
       </div>
@@ -272,20 +272,20 @@ export const ReportsAnalyticsView: React.FC<ReportsAnalyticsViewProps> = ({
         boxShadow: '0 4px 12px rgba(0, 0, 0, 0.04)'
       }}>
         <h3 style={{ fontSize: '1.05rem', fontWeight: 800, color: '#0F172A', marginBottom: '16px' }}>
-          مصفوفة أداء واستجابة المكاتب الجامعية
+          University Office Performance Matrix
         </h3>
 
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'right' }}>
             <thead>
               <tr style={{ borderBottom: '2px solid #E2E8F0', color: '#64748B', fontSize: '0.8rem' }}>
-                <th style={{ padding: '12px 14px' }}>المكتب الجامعي</th>
-                <th style={{ padding: '12px 14px' }}>التصنيف</th>
-                <th style={{ padding: '12px 14px' }}>المدير المسؤول</th>
-                <th style={{ padding: '12px 14px' }}>حالة الاتصال</th>
-                <th style={{ padding: '12px 14px' }}>إجمالي المهام</th>
-                <th style={{ padding: '12px 14px' }}>متوسط الاستجابة</th>
-                <th style={{ padding: '12px 14px' }}>نسبة الإنجاز</th>
+                <th style={{ padding: '12px 14px' }}>University Office</th>
+                <th style={{ padding: '12px 14px' }}>Category</th>
+                <th style={{ padding: '12px 14px' }}>Manager</th>
+                <th style={{ padding: '12px 14px' }}>Connection</th>
+                <th style={{ padding: '12px 14px' }}>Total Tasks</th>
+                <th style={{ padding: '12px 14px' }}>Avg. Response</th>
+                <th style={{ padding: '12px 14px' }}>Completion</th>
               </tr>
             </thead>
             <tbody>
@@ -294,7 +294,7 @@ export const ReportsAnalyticsView: React.FC<ReportsAnalyticsViewProps> = ({
                   <td style={{ padding: '14px', fontWeight: 700, color: '#0F172A' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                       <Building2 size={18} color="#2563EB" />
-                      <span>{op.nameAr}</span>
+                      <span>{op.name}</span>
                     </div>
                   </td>
                   <td style={{ padding: '14px', color: '#64748B' }}>{op.category}</td>
@@ -308,14 +308,14 @@ export const ReportsAnalyticsView: React.FC<ReportsAnalyticsViewProps> = ({
                       backgroundColor: op.status === 'online' ? '#ECFDF5' : '#F1F5F9',
                       color: op.status === 'online' ? '#059669' : '#64748B'
                     }}>
-                      {op.status === 'online' ? 'متصل 🟢' : 'غير متصل ⚪'}
+                      {op.status === 'online' ? 'Online 🟢' : 'Offline ⚪'}
                     </span>
                   </td>
                   <td style={{ padding: '14px', fontWeight: 700, color: '#0F172A' }}>
-                    {op.taskCount} مهام
+                    {op.taskCount} tasks
                   </td>
                   <td style={{ padding: '14px', color: '#2563EB', fontWeight: 600 }}>
-                    {op.avgResponseMinutes} دقيقة
+                    {op.avgResponseMinutes} min
                   </td>
                   <td style={{ padding: '14px' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>

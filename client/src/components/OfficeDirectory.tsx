@@ -75,10 +75,10 @@ export const OfficeDirectory: React.FC<OfficeDirectoryProps> = ({
       <div className="glass-panel" style={{ padding: '20px 24px', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '16px' }}>
         <div>
           <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#f8fafc', margin: '0 0 4px' }}>
-            University Office Directory (دليل مكاتب الجامعة)
+            University Office Directory
           </h2>
           <p style={{ fontSize: '0.82rem', color: '#94a3b8', margin: 0 }}>
-            الهيكل التنظيمي للمكاتب والإدارات والمسؤولين والأجهزة المتصلة
+            Organizational structure of university offices, departments, managers, and connected devices
           </p>
         </div>
 
@@ -88,7 +88,7 @@ export const OfficeDirectory: React.FC<OfficeDirectoryProps> = ({
           style={{ padding: '9px 18px' }}
         >
           <PlusCircle size={16} />
-          <span>Register New Office (إضافة مكتب)</span>
+          <span>Register New Office</span>
         </button>
       </div>
 
@@ -110,7 +110,7 @@ export const OfficeDirectory: React.FC<OfficeDirectoryProps> = ({
           onChange={e => setCategoryFilter(e.target.value)}
           style={{ fontSize: '0.82rem' }}
         >
-          <option value="all">All Categories (كافة التصنيفات)</option>
+          <option value="all">All Categories</option>
           {categories.map(c => (
             <option key={c} value={c}>{c}</option>
           ))}
@@ -125,7 +125,7 @@ export const OfficeDirectory: React.FC<OfficeDirectoryProps> = ({
               Register New University Office
             </h3>
             <p style={{ fontSize: '0.8rem', color: '#94a3b8', marginBottom: '18px' }}>
-              إضافة مكتب جديد إلى المنصة المركزية وتعيين المسؤول المباشر وتخصيص هوية الجهاز.
+              Add a new office to the central platform, assign a direct manager, and configure the device identity.
             </p>
 
             <form onSubmit={handleCreateOffice} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
